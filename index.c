@@ -3,7 +3,7 @@
 
 int main(void)
 {
-  const char *user = getenv("QUERY_STRING");
+  const char *user = getenv("REQUEST_URI");
   printf("Content-Type: text/html\n\n");
   printf("%s %s %s",
 	 "<!DOCTYPE html>"
