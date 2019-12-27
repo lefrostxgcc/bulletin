@@ -3,7 +3,7 @@
 
 int main(void)
 {
-  const char *user = getenv("REQUEST_URI");
+  const char *uri = getenv("REQUEST_URI");
   printf("Content-Type: text/html\n\n");
   printf("%s %s %s",
 	 "<!DOCTYPE html>"
@@ -18,10 +18,9 @@ int main(void)
 	 "</style>"
 	 "<body>"
 	 "<div class=\"centerDiv\">"
-	 "<h1>Hello Videosharp Web Bulletin Board!</h1>"
-	 "<h1>",
-	 user,
-	 "<h1>"
+	 "<h1> REQUEST_URI: \"",
+	 uri,
+	 "\"<h1>"
 	 "</div>"
 	 "</body>"
 	 "</html>"
