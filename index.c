@@ -9,7 +9,7 @@ int main(void)
 	 "<!DOCTYPE html>"
 	 "<html>"
 	 "<body>"
-	 "<h1> REQUEST_URI: \"", request_uri, "\"<h1>"
+	 "<h1> REQUEST_URI: \"", request_uri, "\"</h1>"
 	 "</body>"
 	 "</html>"
 	 );
