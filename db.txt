@@ -1,0 +1,34 @@
+Пользователь
+    Данные аутентификации и авторизации
+    Информация о пользователе (ФИО)
+
+Разделы (темы)
+    
+
+Объявление
+    Дата публикации
+    Заголовок
+    Информация
+    Контактная информация
+    Город
+    Цена
+    Несколько фото
+
+Фото
+    Ссылка на фото
+    Описание
+
+User
+    id, username, password, auth_key, access_token
+
+Userinfo
+    id, user_id, fm, name, middlename
+
+Sections
+    id, section, info
+
+Bulletins
+    id, user_id, date_pub, title, info, contacts, city, price
+
+Photos
+    id, bull_id, link, info
