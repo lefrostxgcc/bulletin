@@ -7,6 +7,10 @@
 #define MAX_USERNAME_LEN 15
 #define MAX_PASSWORD_LEN 15
 #define MAX_CONTENT_LEN 63
+#define DB_HOST "localhost"
+#define DB_NAME "bulletinsdb"
+#define DB_USER "root"
+#define DB_PASS "Video#13417"
 
 static inline void print_login_form(void)
 {
@@ -70,8 +74,7 @@ static int is_correct_user_pass(const char *username, const char *password)
   for (int i = 0; i < MD5_DIGEST_LENGTH; ++i)
     snprintf(md5pass + i * 2, 3, "%02x", md5digest[i]);
   conn = mysql_init(NULL);
-  mysql_real_connect(conn, "localhost", "root", "Video#13417",
-		     "bulletinsdb", 0, NULL, 0);
+  mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
   snprintf(query, 256, "SELECT COUNT(id) FROM user WHERE "
 	   "username='%s' AND password='%s';", username, md5pass);
   mysql_query(conn, query);
