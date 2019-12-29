@@ -46,13 +46,13 @@ static inline void print_index_page(void)
 	 );
 }
 
-static void print_content_length_error(void)
+static inline void print_content_length_error(void)
 {
   print_index_page();
   printf("%s", "<div>Ошибка передачи данных из формы<div>");
 }
 
-static void print_login_error_page(void)
+static inline void print_login_error_page(void)
 {
   print_index_page();
   printf("%s", "<div>Ошибка! Неверное имя пользователя или пароль<div>");
