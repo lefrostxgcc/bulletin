@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <mysql.h>
 
 #define MAX_USERNAME_LEN 15
 #define MAX_PASSWORD_LEN 15
@@ -66,9 +67,27 @@ int main(void)
 	print_login_form();
       else
 	{
-	  fgets(content, length, stdin);
+	  fgets(content, length + 1, stdin);
 	  sscanf(content, "login=%15[^&]&password=%15s", username, password);
-	  print_welcome_page(username);
+	  MYSQL *conn = NULL;
+	  MYSQL_RES *result = NULL;
+	  MYSQL_ROW row;
+	  char query[128];
+	  conn = mysql_init(NULL);
+	  mysql_real_connect(conn, "localhost", "root", "Video#13417",
+			     "bulletinsdb", 0, NULL, 0);
+	  snprintf(query, 128, "SELECT COUNT(id) FROM user WHERE "
+		   "username='%s' AND password='%s';", username, password);
+	  mysql_query(conn, query);
+	  result = mysql_store_result(conn);
+	  row = mysql_fetch_row(result);
+	  int count = atoi(row[0]);
+	  mysql_free_result(result);
+	  mysql_close(conn);
+	  if (count == 1)
+	    print_welcome_page(username);
+	  else
+	    print_index_page();
 	}
     }
   else

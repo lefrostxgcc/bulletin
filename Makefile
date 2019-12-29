@@ -1,6 +1,7 @@
 .PHONY: all clean install
 
-CFLAGS=-Wall -Wextra
+CFLAGS=-Wall -Wextra `pkg-config --cflags mariadb`
+LDLIBS=`pkg-config --libs mariadb`
 project:=bulletin
 name:= index.cgi
 sources:= index.c
