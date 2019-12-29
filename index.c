@@ -12,15 +12,15 @@ static inline void print_login_form(void)
 {
   printf("%s",
 	 "<form action=\"welcome\" method=\"post\">"
-	 "<div>"
-	 "<label>Login:</label><input name=\"login\" size=\"15\">"
-	 "</div>"
-	 "<div>"
-	 "<label>Password:</label><input name=\"password\" size=\"15\">"
-	 "</div>"
-	 "<div>"
-	 "<input type=\"submit\" value=\"Login\">"
-	 "</div>"
+	 "<table><tr>"
+	 "<td><label>Login:</label></td>"
+	 "<td><input name=\"login\" size=\"15\"></td>"
+	 "</tr><tr>"
+	 "<td><label>Password:</label></td>"
+	 "<td><input name=\"password\" size=\"15\"></td>"
+	 "</tr><tr>"
+	 "<td><input type=\"submit\" value=\"Login\"></td></tr>"
+	 "</table>"
 	 "</form>"
 	 );
 }
@@ -53,8 +53,11 @@ int main(void)
   char password[MAX_PASSWORD_LEN + 1] = {'\0'};
   char content[MAX_CONTENT_LEN + 1];
   printf("%s", "Content-Type: text/html\n\n");
-  printf("%s", "<!DOCTYPE html><html><body>");
-  printf("%s", "<h1>Доска объявлений</h1>");
+  printf("%s", "<!DOCTYPE html><html>");
+  printf("%s", "<head><style>.centered { position: fixed;"
+	 "top: 50%; left: 50%; transform: translate(-50%, -50%);}"
+	 "</style></head><body>");
+  printf("%s", "<div class=centered><div><h1>Доска объявлений</h1></div>");
   printf("%s", "<a href=\"/\">На главную страницу</a>");
   if (strcmp(request_uri, "/login") == 0)
     {
@@ -100,6 +103,6 @@ int main(void)
     {
       print_index_page();
     }
-  printf("</body></html>");
+  printf("</div></body></html>");
   printf("\n\n");
 }
