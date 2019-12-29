@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <mysql.h>
+#include <openssl/md5.h>
 
 #define MAX_USERNAME_LEN 15
 #define MAX_PASSWORD_LEN 15
@@ -69,15 +70,20 @@ int main(void)
 	{
 	  fgets(content, length + 1, stdin);
 	  sscanf(content, "login=%15[^&]&password=%15s", username, password);
+	  unsigned char md5digest[MD5_DIGEST_LENGTH + 1] = {'\0'};
+	  MD5((const unsigned char *)password, strlen(password), md5digest);
+	  char md5pass[64] = {'\0'};
+	  for (int i = 0; i < MD5_DIGEST_LENGTH; ++i)
+	    snprintf(md5pass + i * 2, 3, "%02x", md5digest[i]);
 	  MYSQL *conn = NULL;
 	  MYSQL_RES *result = NULL;
 	  MYSQL_ROW row;
-	  char query[128];
+	  char query[256];
 	  conn = mysql_init(NULL);
 	  mysql_real_connect(conn, "localhost", "root", "Video#13417",
 			     "bulletinsdb", 0, NULL, 0);
-	  snprintf(query, 128, "SELECT COUNT(id) FROM user WHERE "
-		   "username='%s' AND password='%s';", username, password);
+	  snprintf(query, 256, "SELECT COUNT(id) FROM user WHERE "
+		   "username='%s' AND password='%s';", username, md5pass);
 	  mysql_query(conn, query);
 	  result = mysql_store_result(conn);
 	  row = mysql_fetch_row(result);
