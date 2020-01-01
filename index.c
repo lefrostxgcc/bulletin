@@ -44,11 +44,6 @@ static inline void print_welcome_page(const char *username)
 
 static inline void print_index_page(void)
 {
-  printf("%s",
-	 "<div>"
-	 "<a href=\"login\">Вход</a>"
-	 "</div>"
-	 );
 }
 
 static inline void print_content_length_error(void)
@@ -121,10 +116,19 @@ int main(void)
   printf("%s", "Content-Type: text/html\n\n");
   printf("%s", "<!DOCTYPE html><html>");
   printf("%s", "<head><style>.centered { position: fixed;"
-	 "top: 50%; left: 50%; transform: translate(-50%, -50%);}"
-	 "</style></head><body>");
-  printf("%s", "<div class=centered><div><h1>Доска объявлений</h1></div>");
-  printf("%s", "<a href=\"/\">На главную страницу</a>");
+	 "top: 50%; left: 50%; transform: translate(-50%, -50%);}");
+  printf("%s", "nav {display: flex; flex-wrap:wrap;}");
+  printf("%s", "nav a{display: block; padding: 15px 25px;");
+  printf("%s", "text-align: center; background-color: rgb(189, 185, 185);");
+  printf("%s", "font-family: sans-serif; text-decoration: none;");
+  printf("%s", "color: #464141; margin: 0;}");
+  printf("%s", "nav a:hover{background-color: #777777; color: #ffffff;}");
+  printf("%s", "</style></head><body>");
+  printf("%s", "<header><nav>");
+  printf("%s", "<a href=\"/\">Доска объявлений</a>");
+  printf("%s", "<a href=\"/user/index\">Информация о пользователе</a>");
+  printf("%s", "<a href=\"/login\">Вход</a>");
+  printf("%s", "</nav></header>");
   if (strcmp(request_uri, "/login") == 0)
     print_login_form();
   else if (strcmp(request_uri, "/auth") == 0)
