@@ -4,7 +4,7 @@ CFLAGS=-Wall -Wextra `pkg-config --cflags mariadb`
 LDLIBS=`pkg-config --libs mariadb` -lcrypto
 project:=bulletin
 name:= index.cgi
-sources:= index.c
+sources:= index.c view/user/view_user_index.c controller/controller_user.c
 objects:= $(sources:.c=.o)
 prefix:=/var/www/$(project)
 bindir:=$(prefix)
@@ -16,6 +16,11 @@ all: $(name) $(htaccess)
 
 $(name): $(objects)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+
+index.o: controller/controller_user.h
+view/user/view_user_index.o: view/user/view_user.h
+controller/controller_user.o: view/user/view_user.h \
+	controller/controller_user.h
 
 install: all
 	$(install_bin) $(name) $(bindir)/$(name)

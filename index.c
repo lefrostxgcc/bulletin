@@ -3,6 +3,7 @@
 #include <string.h>
 #include <mysql.h>
 #include <openssl/md5.h>
+#include "controller/controller_user.h"
 
 #define MAX_USERNAME_LEN 15
 #define MAX_PASSWORD_LEN 15
@@ -125,11 +126,13 @@ int main(void)
   printf("%s", "<div class=centered><div><h1>Доска объявлений</h1></div>");
   printf("%s", "<a href=\"/\">На главную страницу</a>");
   if (strcmp(request_uri, "/login") == 0)
-      print_login_form();
+    print_login_form();
   else if (strcmp(request_uri, "/auth") == 0)
-      do_auth();
+    do_auth();
+  else if (strcmp(request_uri, "/user/index") == 0)
+    controller_user_action(request_uri);
   else
-      print_index_page();
+    print_index_page();
   printf("</div></body></html>");
   printf("\n\n");
 }
