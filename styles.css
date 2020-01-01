@@ -1,6 +1,6 @@
 .top-menu {
   position: relative;
-  background: rgba(34,34,34,.2);
+  background: rgb(189,185,185);
 }
 .menu-main {
   list-style: none;
@@ -24,5 +24,5 @@
   color: white;
   transition: .3s linear;
 }
-.menu-main a:hover {background: rgba(0,0,0,.3);}
+.menu-main a:hover {background: #777777;}
 

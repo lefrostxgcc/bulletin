@@ -44,6 +44,7 @@ static inline void print_welcome_page(const char *username)
 
 static inline void print_index_page(void)
 {
+  printf("%s", "<h2>Главная страница</h2>");
 }
 
 static inline void print_content_length_error(void)
