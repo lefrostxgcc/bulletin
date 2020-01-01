@@ -9,6 +9,7 @@ objects:= $(sources:.c=.o)
 prefix:=/var/www/$(project)
 bindir:=$(prefix)
 htaccess:= .htaccess
+css_file:=styles.css
 install_bin:= install
 install_data:= install -m 644
 
@@ -25,6 +26,7 @@ controller/controller_user.o: view/user/view_user.h \
 install: all
 	$(install_bin) $(name) $(bindir)/$(name)
 	$(install_data) $(htaccess) $(bindir)/$(htaccess)
+	$(install_data) $(css_file) $(bindir)/$(css_file)
 	chcon -t httpd_sys_script_exec_t $(bindir)/$(name)
 
 clean:

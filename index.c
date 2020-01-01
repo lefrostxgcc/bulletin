@@ -49,13 +49,13 @@ static inline void print_index_page(void)
 static inline void print_content_length_error(void)
 {
   print_index_page();
-  printf("%s", "<div>Ошибка передачи данных из формы<div>");
+  printf("%s", "<div>Ошибка передачи данных из формы</div>");
 }
 
 static inline void print_login_error_page(void)
 {
   print_index_page();
-  printf("%s", "<div>Ошибка! Неверное имя пользователя или пароль<div>");
+  printf("%s", "<div>Ошибка! Неверное имя пользователя или пароль</div>");
 }
 
 static int is_correct_user_pass(const char *username, const char *password)
@@ -115,20 +115,16 @@ int main(void)
   const char *request_uri = getenv("REQUEST_URI");
   printf("%s", "Content-Type: text/html\n\n");
   printf("%s", "<!DOCTYPE html><html>");
-  printf("%s", "<head><style>.centered { position: fixed;"
-	 "top: 50%; left: 50%; transform: translate(-50%, -50%);}");
-  printf("%s", "nav {display: flex; flex-wrap:wrap;}");
-  printf("%s", "nav a{display: block; padding: 15px 25px;");
-  printf("%s", "text-align: center; background-color: rgb(189, 185, 185);");
-  printf("%s", "font-family: sans-serif; text-decoration: none;");
-  printf("%s", "color: #464141; margin: 0;}");
-  printf("%s", "nav a:hover{background-color: #777777; color: #ffffff;}");
-  printf("%s", "</style></head><body>");
-  printf("%s", "<header><nav>");
-  printf("%s", "<a href=\"/\">Доска объявлений</a>");
-  printf("%s", "<a href=\"/user/index\">Информация о пользователе</a>");
-  printf("%s", "<a href=\"/login\">Вход</a>");
-  printf("%s", "</nav></header>");
+  printf("%s", "<head>");
+  printf("%s", "<link rel=\"stylesheet\" href=\"/styles.css\">");
+  printf("%s", "</head><body>");
+  printf("%s", "<header><nav class=\"top-menu\">");
+  printf("%s", "<ul class=\"menu-main\">");
+  printf("%s", "<li class=\"left-item\"><a href=\"/\">Доска объявлений</a></li>");
+  printf("%s", "<li class=\"right-item\"><a href=\"/login\">Вход</a></li>");
+  printf("%s", "<li class=\"right-item\"><a href=\"/user/index\">Информация о пользователе</a></li>");
+
+  printf("%s", "</ul></nav></header>");
   if (strcmp(request_uri, "/login") == 0)
     print_login_form();
   else if (strcmp(request_uri, "/auth") == 0)
@@ -137,6 +133,6 @@ int main(void)
     controller_user_action(request_uri);
   else
     print_index_page();
-  printf("</div></body></html>");
+  printf("</body></html>");
   printf("\n\n");
 }
