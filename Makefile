@@ -5,7 +5,7 @@ LDLIBS=`pkg-config --libs mariadb` -lcrypto
 project:=bulletin
 name:= index.cgi
 sources:= index.c view/user/view_user_index.c controller/controller_user.c \
-model/model_user.c
+model/model_user.c model/model_userinfo.c
 objects:= $(sources:.c=.o)
 prefix:=/var/www/$(project)
 bindir:=$(prefix)
@@ -22,8 +22,10 @@ $(name): $(objects)
 index.o: controller/controller_user.h
 view/user/view_user_index.o: view/user/view_user.h model/model_user.h
 controller/controller_user.o: view/user/view_user.h \
-	controller/controller_user.h
+	controller/controller_user.h model/model_user.h \
+	model/model_userinfo.h
 model/model_user.o: model/model_user.h model/model_db.h
+model/model_userinfo.o: model/model_userinfo.h model/model_db.h
 
 install: all
 	$(install_bin) $(name) $(bindir)/$(name)
