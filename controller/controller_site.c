@@ -5,7 +5,6 @@
 #include "../model/model_user.h"
 #include "../view/site/view_site.h"
 
-#define STR(x) #x
 #define MAX_USERNAME_LEN 15
 #define MAX_PASSWORD_LEN 15
 #define MAX_CONTENT_LEN 63
@@ -35,8 +34,15 @@ static void controller_site_action_login(void)
     }
 }
 
+static void controller_site_action_index(void)
+{
+  render_site_index();
+}
+
 void controller_site_action(const char *request_uri)
 {
   if (strcmp(request_uri, "/site/login") == 0)
     controller_site_action_login();
+  else
+    controller_site_action_index();
 }

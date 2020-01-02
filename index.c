@@ -4,11 +4,6 @@
 #include "controller/controller_user.h"
 #include "controller/controller_site.h"
 
-static inline void print_index_page(void)
-{
-  printf("%s", "<h2>Главная страница</h2>");
-}
-
 int main(void)
 {
   const char *request_uri = getenv("REQUEST_URI");
@@ -29,7 +24,7 @@ int main(void)
   else if (strcmp(request_uri, "/user/index") == 0)
     controller_user_action(request_uri);
   else
-    print_index_page();
+    controller_site_action(request_uri);
   printf("</body></html>");
   printf("\n\n");
 }
