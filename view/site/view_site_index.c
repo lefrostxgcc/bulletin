@@ -20,7 +20,7 @@ static void show_header(void)
   else
     {
       char username[256] = {'\0'};
-      sscanf(cookie, "UserName: %255s", username);
+      sscanf(cookie, "UserName=%255[^;]", username);
       if (username[0])
 	{
 	  printf("<li class=\"right-item\"><a href=\"/site/logout\">Выход(%s)</a></li>", username);

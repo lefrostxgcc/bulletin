@@ -6,7 +6,8 @@ project:=bulletin
 name:= index.cgi
 sources:= index.c view/user/view_user_index.c controller/controller_user.c \
 model/model_user.c model/model_userinfo.c controller/controller_site.c \
-view/site/view_site_login.c view/site/view_site_index.c
+view/site/view_site_login.c view/site/view_site_index.c \
+view/site/view_site_logout.c
 objects:= $(sources:.c=.o)
 prefix:=/var/www/$(project)
 bindir:=$(prefix)
@@ -31,6 +32,7 @@ controller/controller_site.o: view/site/view_site.h \
 	controller/controller_site.h model/model_user.h
 view/site/view_site_login.o: view/site/view_site.h
 view/site/view_site_index.o: view/site/view_site.h
+view/site/view_site_logout.o: view/site/view_site.h
 
 install: all
 	$(install_bin) $(name) $(bindir)/$(name)

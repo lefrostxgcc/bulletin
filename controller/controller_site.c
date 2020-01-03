@@ -39,10 +39,17 @@ static void controller_site_action_index(void)
   render_site_index();
 }
 
+static void controller_site_action_logout(void)
+{
+  render_site_logout();
+}
+
 void controller_site_action(const char *request_uri)
 {
   if (strcmp(request_uri, "/site/login") == 0)
     controller_site_action_login();
+  else if (strcmp(request_uri, "/site/logout") == 0)
+    controller_site_action_logout();
   else
     controller_site_action_index();
 }
