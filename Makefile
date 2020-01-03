@@ -40,6 +40,7 @@ install: all
 	$(install_bin) $(name) $(bindir)/$(name)
 	$(install_data) $(htaccess) $(bindir)/$(htaccess)
 	$(install_data) $(css_file) $(bindir)/$(css_file)
+	$(install_data) htmlt/site_index_guest.html $(bindir)/site_index_guest.html
 	chcon -t httpd_sys_script_exec_t $(bindir)/$(name)
 
 clean:
