@@ -4,7 +4,7 @@
 #include "../../model/model_user.h"
 #include "../../model/model_userinfo.h"
 
-void
-render_user_index(struct Model_user *user, struct Model_userinfo *userinfo);
+void render_user_index(const struct Model_user *user,
+		       const struct Model_userinfo *userinfo);
 
 #endif

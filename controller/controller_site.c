@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "session.h"
 #include "controller_site.h"
 #include "../model/model_user.h"
 #include "../view/site/view_site.h"
@@ -27,8 +28,9 @@ static void controller_site_action_login(void)
       sscanf(content,
 	     "login=%15[^&]&password=%15s",
 	     username, password);
-      if (model_user_check_username_password(username, password))
-	render_site_welcome(username);
+      const int user_id = model_user_find_user_id(username, password);
+      if (user_id > 0)
+	render_site_welcome(user_id);
       else
 	render_site_login_fail(username);
     }
@@ -36,12 +38,15 @@ static void controller_site_action_login(void)
 
 static void controller_site_action_index(void)
 {
-  render_site_index();
+  const int user_id = session_get_curr_user_id();
+  struct Model_user *user = model_user_select_by_id(user_id);
+  render_site_index(user ? user->username : NULL);
+  model_user_free(user);
 }
 
 static void controller_site_action_logout(void)
 {
-  render_site_logout();
+  render_site_logout(session_get_curr_user_id());
 }
 
 void controller_site_action(const char *request_uri)

@@ -20,6 +20,8 @@ struct Model_userinfo* model_userinfo_select_by_user_id(int user_id)
   mysql_query(conn, query);
   result = mysql_store_result(conn);
   row = mysql_fetch_row(result);
+  if (!row)
+    return NULL;
   struct Model_userinfo *userinfo = calloc(1, sizeof(struct Model_userinfo));
   userinfo->id = atoi(row[0] ? row[0]: "");
   userinfo->user_id = atoi(row[1] ? row[1]: "");

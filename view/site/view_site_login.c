@@ -63,9 +63,9 @@ void render_site_login_fail(const char *username)
   show_footer();
 }
 
-static void show_header_index()
+static void show_header_index(int user_id)
 {
-  printf("%s", "Set-Cookie: UserName=chip; Path=/\n");
+  printf("Set-Cookie: UserId=%d; Path=/\n", user_id);
   printf("%s", "Content-Type: text/html\n\n");
   printf("%s", "<!DOCTYPE html><html>");
   printf("%s", "<head>");
@@ -73,9 +73,8 @@ static void show_header_index()
   printf("%s", "</head><body>");
 }
 
-void render_site_welcome(const char *username)
+void render_site_welcome(int user_id)
 {
-  (void) username;
-  show_header_index();
+  show_header_index(user_id);
   show_footer();
 }
