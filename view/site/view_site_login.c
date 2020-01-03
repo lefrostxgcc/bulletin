@@ -65,6 +65,7 @@ void render_site_login_fail(const char *username)
 
 static void show_header_index()
 {
+  printf("%s", "Set-Cookie: UserName: chip\n");
   printf("%s", "Content-Type: text/html\n\n");
   printf("%s", "<!DOCTYPE html><html>");
   printf("%s", "<head>");
