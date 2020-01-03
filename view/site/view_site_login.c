@@ -63,9 +63,18 @@ void render_site_login_fail(const char *username)
   show_footer();
 }
 
+static void show_header_index()
+{
+  printf("%s", "Content-Type: text/html\n\n");
+  printf("%s", "<!DOCTYPE html><html>");
+  printf("%s", "<head>");
+  printf("%s", "<meta http-equiv=\"Refresh\" content=\"0; url=/site/index\" />");
+  printf("%s", "</head><body>");
+}
+
 void render_site_welcome(const char *username)
 {
-  show_header();
-  printf("%s %s %s", "<div><h2> Привет", username, "!</h2></div>");
+  (void) username;
+  show_header_index();
   show_footer();
 }
