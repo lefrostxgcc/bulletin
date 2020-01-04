@@ -44,6 +44,7 @@ install: all
 	$(install_data) $(css_file) $(bindir)/$(css_file)
 	$(install_data) htmlt/site_index_guest.html $(bindir)/site_index_guest.html
 	$(install_data) htmlt/site_index_user.html $(bindir)/site_index_user.html
+	$(install_data) htmlt/site_index_logout.html $(bindir)/site_index_logout.html
 	chcon -t httpd_sys_script_exec_t $(bindir)/$(name)
 
 clean:
