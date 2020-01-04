@@ -5,7 +5,7 @@
 #include "../model/model_userinfo.h"
 #include "../view/user/view_user.h"
 
-static void controller_user_action_index(void)
+static inline void controller_user_action_index(void)
 {
   const int user_id = session_get_curr_user_id();
   struct Model_user *user =
@@ -17,7 +17,7 @@ static void controller_user_action_index(void)
   model_userinfo_free(userinfo);
 }
 
-static void controller_user_action_add(void)
+static inline void controller_user_action_add(void)
 {
   const int user_id = session_get_curr_user_id();
   struct Model_user *user =
