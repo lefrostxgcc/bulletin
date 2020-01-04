@@ -17,8 +17,19 @@ static void controller_user_action_index(void)
   model_userinfo_free(userinfo);
 }
 
+static void controller_user_action_add(void)
+{
+  const int user_id = session_get_curr_user_id();
+  struct Model_user *user =
+    model_user_select_by_id(user_id);
+  render_user_add(user);
+  model_user_free(user);
+}
+
 void controller_user_action(const char *request_uri)
 {
   if (strcmp(request_uri, "/user/index") == 0)
     controller_user_action_index();
+  else if (strcmp(request_uri, "/user/add") == 0)
+    controller_user_action_add();
 }

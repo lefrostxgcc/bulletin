@@ -6,5 +6,6 @@
 
 void render_user_index(const struct Model_user *user,
 		       const struct Model_userinfo *userinfo);
+void render_user_add(const struct Model_user *user);
 
 #endif
