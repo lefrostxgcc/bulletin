@@ -2,7 +2,7 @@
 #include <string.h>
 #include "view_site.h"
 #include "../read_replace_write.h"
-
+/*
 static void show_header_old(const char *username)
 {
   printf("%s", "Content-Type: text/html\n\n");
@@ -26,7 +26,7 @@ static void show_footer_old(void)
   printf("</body></html>");
   printf("\n\n");
 }
-
+*/
 void replace_func(const char *placeholder,
 		  const struct Key_value map[],
 		  int status)
@@ -42,21 +42,32 @@ void replace_func(const char *placeholder,
 
 void render_site_index(const char *username)
 {
-  if (username)
-    {
-      show_header_old(username);
-      printf("%s", "<h2>Главная страница</h2>");
-      show_footer_old();
-      return;
-    }
-  printf("%s", "Content-Type: text/html\n\n");
-  FILE *fp = fopen("site_index_guest.html", "r");
-  char buf[64];
-  const struct Key_value map[] =
+  const struct Key_value guest_map[] =
     {
      (const struct Key_value){.key = "BODY", .value = "<h2>Главная</h2>"},
      (const struct Key_value){.key = NULL, .value = NULL}
     };
+  const struct Key_value user_map[] =
+    {
+     (const struct Key_value){.key = "LOGIN", .value = username},
+     (const struct Key_value){.key = "BODY", .value = "<h2>Главная</h2>"},
+     (const struct Key_value){.key = NULL, .value = NULL}
+    };
+  FILE *fp = NULL;
+  const struct Key_value *map = NULL;
+  if (!username)
+    {
+      fp = fopen("site_index_guest.html", "r");
+      map = guest_map;
+    }
+  else
+    {
+      fp = fopen("site_index_user.html", "r");
+      map = user_map;
+    }
+  printf("%s", "Content-Type: text/html\n\n");
+  char buf[64];
   read_replace_write(fp, buf, sizeof(buf), map, replace_func);
   printf("\n\n");
+  fclose(fp);
 }
