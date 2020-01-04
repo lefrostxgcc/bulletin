@@ -45,6 +45,11 @@ install: all
 	$(install_data) htmlt/site_index_guest.html $(bindir)/site_index_guest.html
 	$(install_data) htmlt/site_index_user.html $(bindir)/site_index_user.html
 	$(install_data) htmlt/site_index_logout.html $(bindir)/site_index_logout.html
+	$(install_data) htmlt/site_login.html $(bindir)/site_login.html
+	$(install_data) htmlt/site_login_fail.html $(bindir)/site_login_fail.html
+	$(install_data) htmlt/site_login_success.html $(bindir)/site_login_success.html
+	$(install_data) htmlt/user_index.html $(bindir)/user_index.html
+	$(install_data) htmlt/user_index_guest.html $(bindir)/user_index_guest.html
 	chcon -t httpd_sys_script_exec_t $(bindir)/$(name)
 
 clean:

@@ -1,42 +1,46 @@
 #include <stdio.h>
 #include "view_user.h"
+#include "../read_replace_write.h"
 #include "../../model/model_user.h"
 #include "../../model/model_userinfo.h"
 
-static void show_header(const char *username)
+static void render_user_index_guest(void)
 {
+  const struct Key_value map[] =
+    {
+     (const struct Key_value){.key = NULL, .value = NULL}
+    };
+  char buf[64];
+  FILE *fp = fopen("user_index_guest.html", "r");
   printf("%s", "Content-Type: text/html\n\n");
-  printf("%s", "<!DOCTYPE html><html>");
-  printf("%s", "<head>");
-  printf("%s", "<link rel=\"stylesheet\" href=\"/styles.css\">");
-  printf("%s", "</head><body>");
-  printf("%s", "<header><nav class=\"top-menu\">");
-  printf("%s", "<ul class=\"menu-main\">");
-  printf("%s", "<li class=\"left-item\"><a href=\"/\">Доска объявлений</a></li>");
-  if (username)
-    printf("<li class=\"right-item\"><a href=\"/site/logout\">Выход(%s)</a></li>", username);
-  else
-    printf("%s", "<li class=\"right-item\"><a href=\"/site/login\">Вход</a></li>");
-  printf("%s", "<li class=\"right-item\"><a href=\"/user/index\">Информация о пользователе</a></li>");
-  printf("%s", "</ul></nav></header>");
+  read_replace_write(fp, buf, sizeof(buf), map);
+  printf("\n\n");
+  fclose(fp);
 }
 
-static void show_footer()
+void render_user_index_user(const struct Model_user *user,
+			    const struct Model_userinfo *userinfo)
 {
-  printf("</body></html>");
+  const struct Key_value map[] =
+    {
+     (const struct Key_value){.key = "LOGIN", .value = user->username},
+     (const struct Key_value){.key = "USERNAME", .value = user->username},
+     (const struct Key_value){.key = "SURNAME", .value = userinfo->surname},
+     (const struct Key_value){.key = NULL, .value = NULL}
+    };
+  char buf[64];
+  FILE * fp = fopen("user_index.html", "r");
+  printf("%s", "Content-Type: text/html\n\n");
+  read_replace_write(fp, buf, sizeof(buf), map);
   printf("\n\n");
+  fclose(fp);
 }
 
 void render_user_index(const struct Model_user *user,
 		       const struct Model_userinfo *userinfo)
 {
-  show_header(user ? user->username : NULL);
-  printf("<h2>Информация о пользователе</h2>");
-  printf("<div>");
-  printf("<p>Логин <strong>%s</strong></p>",
-	 user ? user->username : "");
-  printf("<p>Фамилия <strong>%s</strong></p>",
-	 userinfo ? userinfo->surname: "");
-  printf("</div>");
-  show_footer();
+  if (user && userinfo)
+    render_user_index_user(user, userinfo);
+  else
+    render_user_index_guest();
 }

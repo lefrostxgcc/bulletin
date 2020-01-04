@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header>
+      <nav class="top-menu">
+	<ul class="menu-main">
+	  <li class="left-item">
+	    <a href="/">Доска объявлений</a>
+	  </li>
+	  <li class="right-item">
+	    <a href="/site/login">Вход</a>
+	  </li>
+	  <li class="right-item">
+	    <a href="/user/index">Информация о пользователе</a>
+	  </li>
+	</ul>
+      </nav>
+    </header>
+    <form action="/site/login" method="post">
+      <table>
+	<tr>
+	  <td><label>Login:</label></td>
+	  <td><input name="login" size="15"></td>
+	</tr>
+	<tr>
+	  <td><label>Password:</label></td>
+	  <td><input name="password" size="15"></td>
+	</tr>
+	<tr>
+	  <td><input type="submit" value="Login"></td>
+	</tr>
+      </table>
+    </form>
+  </body>
+</html>
