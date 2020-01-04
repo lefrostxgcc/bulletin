@@ -8,7 +8,8 @@ sources:= index.c view/user/view_user_index.c controller/controller_user.c \
 model/model_user.c model/model_userinfo.c controller/controller_site.c \
 view/site/view_site_login.c view/site/view_site_index.c \
 view/site/view_site_logout.c controller/session.c \
-view/read_replace_write.c view/user/view_user_add.c
+view/read_replace_write.c view/user/view_user_add.c \
+model/model_userform.c
 htmlt_files:= $(wildcard htmlt/*.html)
 css_files:= $(wildcard css/*.css)
 objects:= $(sources:.c=.o)
@@ -43,6 +44,7 @@ controller/session.o: controller/session.h
 view/read_replace_write.o: view/read_replace_write.h
 view/user/view_user_add.o: view/user/view_user.h view/read_replace_write.h \
 model/model_user.h
+model/model_userform.o: model/model_userform.h
 
 install: all
 	-mkdir $(htmltdir)
