@@ -4,22 +4,17 @@
 #include "../../model/model_user.h"
 #include "../../model/model_userinfo.h"
 
-static void render_user_index_guest(void)
+static inline void render_user_index_guest(void)
 {
   const struct Key_value map[] =
     {
      (const struct Key_value){.key = NULL, .value = NULL}
     };
-  char buf[64];
-  FILE *fp = fopen("user_index_guest.html", "r");
-  printf("%s", "Content-Type: text/html\n\n");
-  read_replace_write(fp, buf, sizeof(buf), map);
-  printf("\n\n");
-  fclose(fp);
+  read_replace_write("user_index_guest.html", map, NULL);
 }
 
-void render_user_index_user(const struct Model_user *user,
-			    const struct Model_userinfo *userinfo)
+static inline void render_user_index_user(const struct Model_user *user,
+					  const struct Model_userinfo *userinfo)
 {
   const struct Key_value map[] =
     {
@@ -28,12 +23,7 @@ void render_user_index_user(const struct Model_user *user,
      (const struct Key_value){.key = "SURNAME", .value = userinfo->surname},
      (const struct Key_value){.key = NULL, .value = NULL}
     };
-  char buf[64];
-  FILE * fp = fopen("user_index.html", "r");
-  printf("%s", "Content-Type: text/html\n\n");
-  read_replace_write(fp, buf, sizeof(buf), map);
-  printf("\n\n");
-  fclose(fp);
+  read_replace_write("user_index.html", map, NULL);
 }
 
 void render_user_index(const struct Model_user *user,

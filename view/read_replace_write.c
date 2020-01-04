@@ -26,19 +26,24 @@ static void replace_func(const char *placeholder,
   else if ((value = find_value_by_key(placeholder, map)))
     printf("%s", value);
   else
-    printf("<p>|%s|</p>", placeholder);
+    printf("%s", placeholder);
 }
 
-void read_replace_write(FILE *f,
-			char *buf,
-			size_t buf_size,
-			const struct Key_value map[])
+void read_replace_write(const char *filename,
+			const struct Key_value map[],
+			const char *http_headers)
 {
-  if (!f || !buf || buf_size == 0 || !map)
+  if (!filename || !map)
     return;
+  FILE *f = fopen(filename, "r");
+  char buf[64];
+  const size_t buf_size = sizeof(buf) / sizeof(buf[0]);
   size_t i = 0;
   int c = EOF;
   enum state {OUT, IN_WORD} state = OUT;
+  if (http_headers)
+    printf("%s", http_headers);
+  printf("%s", "Content-Type: text/html\n\n");
   while ((c = fgetc(f)) != EOF)
     {
       switch(state)
@@ -71,4 +76,6 @@ void read_replace_write(FILE *f,
 	  break;
 	}
     }
+  printf("\n\n");
+  fclose(f);
 }
