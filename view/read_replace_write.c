@@ -2,13 +2,29 @@
 #include <string.h>
 #include "read_replace_write.h"
 
-void read_replace_write(FILE *f,
-		       char *buf,
-		       size_t buf_size,
-		       void (*cb_replace_func)(const char *, int)
-		       )
+const char *find_value_by_key(const char *key, const struct Key_value map[])
 {
-  if (!f || !buf || buf_size == 0 || !cb_replace_func)
+  if (!key || !map)
+    return NULL;
+  while (map->key)
+    {
+      if (strcmp(key, map->key) == 0)
+	return map->value;
+      ++map;
+    }
+  return NULL;
+}
+
+void read_replace_write(FILE *f,
+			char *buf,
+			size_t buf_size,
+			const struct Key_value map[],
+			void (*cb_replace_func)(const char *,
+						const struct Key_value map[],
+						int status)
+			)
+{
+  if (!f || !buf || buf_size == 0 || !map || !cb_replace_func)
     return;
   size_t i = 0;
   int c = EOF;
@@ -27,7 +43,7 @@ void read_replace_write(FILE *f,
 	  if (c == '}')
 	    {
 	      buf[i] = '\0';
-	      cb_replace_func(buf, 1);
+	      cb_replace_func(buf, map, 1);
 	      i = 0;
 	      state = OUT;
 	    }
@@ -37,7 +53,7 @@ void read_replace_write(FILE *f,
 	      if (i + 1 >= buf_size)
 		{
 		  buf[i] = '\0';
-		  cb_replace_func(buf, 0);
+		  cb_replace_func(buf, map, 0);
 		  i = 0;
 		  state = OUT;
 		}

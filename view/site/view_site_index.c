@@ -27,11 +27,15 @@ static void show_footer_old(void)
   printf("\n\n");
 }
 
-void replace_func(const char *placeholder, int status)
+void replace_func(const char *placeholder,
+		  const struct Key_value map[],
+		  int status)
 {
-  (void) status;
-  if (strcmp(placeholder, "BODY") == 0)
-    printf("%s", "This is index page");
+  const char *value = NULL;
+  if (status != 1)
+    printf("%s", placeholder);
+  else if ((value = find_value_by_key(placeholder, map)))
+    printf("%s", value);
   else
     printf("<p>|%s|</p>", placeholder);
 }
@@ -48,6 +52,11 @@ void render_site_index(const char *username)
   printf("%s", "Content-Type: text/html\n\n");
   FILE *fp = fopen("site_index_guest.html", "r");
   char buf[64];
-  read_replace_write(fp, buf, sizeof(buf)/sizeof(buf[0]), replace_func);
+  const struct Key_value map[] =
+    {
+     (const struct Key_value){.key = "BODY", .value = "<h2>Главная</h2>"},
+     (const struct Key_value){.key = NULL, .value = NULL}
+    };
+  read_replace_write(fp, buf, sizeof(buf), map, replace_func);
   printf("\n\n");
 }
