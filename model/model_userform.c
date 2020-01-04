@@ -1,10 +1,9 @@
 #include <string.h>
 #include "model_userform.h"
 
-enum Userform_status
-model_userform_validate(const struct Model_userform *userform)
+int model_userform_validate(const struct Model_userform *userform)
 {
-  enum Userform_status status = USERFORM_VALID;
+  int status = USERFORM_VALID;
   if (strlen(userform->username) == 0)
     status |= EMPTY_USERFORM_USERNAME;
   if (strlen(userform->password) == 0)
