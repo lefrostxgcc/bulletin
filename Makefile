@@ -9,15 +9,18 @@ model/model_user.c model/model_userinfo.c controller/controller_site.c \
 view/site/view_site_login.c view/site/view_site_index.c \
 view/site/view_site_logout.c controller/session.c \
 view/read_replace_write.c view/user/view_user_add.c
+htmlt_files:= $(wildcard htmlt/*.html)
+css_files:= $(wildcard css/*.css)
 objects:= $(sources:.c=.o)
 prefix:=/var/www/$(project)
 bindir:=$(prefix)
+htmltdir:=$(prefix)/htmlt
+cssdir:=$(prefix)/css
 htaccess:= .htaccess
-css_file:=styles.css
 install_bin:= install
 install_data:= install -m 644
 
-all: $(name) $(htaccess)
+all: $(name)
 
 $(name): $(objects)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LDLIBS)
@@ -42,16 +45,12 @@ view/user/view_user_add.o: view/user/view_user.h view/read_replace_write.h \
 model/model_user.h
 
 install: all
+	-mkdir $(htmltdir)
+	-mkdir $(cssdir)
 	$(install_bin) $(name) $(bindir)/$(name)
-	$(install_data) $(htaccess) $(bindir)/$(htaccess)
-	$(install_data) $(css_file) $(bindir)/$(css_file)
-	$(install_data) htmlt/site_index.html $(bindir)/site_index.html
-	$(install_data) htmlt/site_index_logout.html $(bindir)/site_index_logout.html
-	$(install_data) htmlt/site_login.html $(bindir)/site_login.html
-	$(install_data) htmlt/site_login_fail.html $(bindir)/site_login_fail.html
-	$(install_data) htmlt/site_login_success.html $(bindir)/site_login_success.html
-	$(install_data) htmlt/user_index.html $(bindir)/user_index.html
-	$(install_data) htmlt/user_add.html $(bindir)/user_add.html
+	$(install_data) $(htaccess) $(bindir)
+	$(install_data) $(htmlt_files) $(htmltdir)
+	$(install_data) $(css_files) $(cssdir)
 	chcon -t httpd_sys_script_exec_t $(bindir)/$(name)
 
 clean:

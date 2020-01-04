@@ -12,7 +12,7 @@ static inline void render_site_index_as_guest(void)
      (const struct Key_value){.key = "CONTENT", .value = "<h2>Главная</h2>"},
      (const struct Key_value){.key = NULL, .value = NULL}
     };
-  read_replace_write("site_index.html", map, NULL);
+  read_replace_write("htmlt/site_index.html", map, NULL);
 }
 
 static inline void render_site_index_as_user(const char *username)
@@ -30,7 +30,7 @@ static inline void render_site_index_as_user(const char *username)
      (const struct Key_value){.key = "CONTENT", .value = "<h2>Главная</h2>"},
      (const struct Key_value){.key = NULL, .value = NULL}
     };
-  read_replace_write("site_index.html", map, NULL);
+  read_replace_write("htmlt/site_index.html", map, NULL);
 }
 
 void render_site_index(const char *username)

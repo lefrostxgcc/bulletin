@@ -14,7 +14,7 @@ static inline void render_user_index_guest(void)
      (const struct Key_value){.key = "SURNAME", ""},
      (const struct Key_value){.key = NULL, .value = NULL}
     };
-  read_replace_write("user_index.html", map, NULL);
+  read_replace_write("htmlt/user_index.html", map, NULL);
 }
 
 static inline void render_user_index_user(const struct Model_user *user,
@@ -34,7 +34,7 @@ static inline void render_user_index_user(const struct Model_user *user,
      (const struct Key_value){.key = "SURNAME", .value = userinfo->surname},
      (const struct Key_value){.key = NULL, .value = NULL}
     };
-  read_replace_write("user_index.html", map, NULL);
+  read_replace_write("htmlt/user_index.html", map, NULL);
 }
 
 void render_user_index(const struct Model_user *user,

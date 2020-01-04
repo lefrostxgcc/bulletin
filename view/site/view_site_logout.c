@@ -14,5 +14,5 @@ void render_site_logout(int user_id)
 	   "Set-Cookie: UserId=%d; path=/;"
 	   " expires=Thu, 01 Jan 1970 00:00:00 GMT\n",
 	   user_id);
-  read_replace_write("site_index_logout.html", map, cookie_header);
+  read_replace_write("htmlt/site_index_logout.html", map, cookie_header);
 }
