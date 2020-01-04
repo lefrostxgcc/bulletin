@@ -9,6 +9,11 @@ static inline void render_user_add_as_guest(void)
     {
      (const struct Key_value){.key = "LOGIN_HREF", .value = "/site/login"},
      (const struct Key_value){.key = "LOGIN", .value = "Вход"},
+     (const struct Key_value)
+     {
+      .key = "CONTENT",
+      .value = "<h3>Новый пользователь</h3>"
+     },
      (const struct Key_value){.key = NULL, .value = NULL}
     };
   read_replace_write("htmlt/user_add.html", map, NULL);
@@ -26,6 +31,11 @@ static inline void render_user_add_as_user(const struct Model_user *user)
     {
      (const struct Key_value){.key = "LOGIN_HREF", .value = "/site/logout"},
      (const struct Key_value){.key = "LOGIN", .value = login_caption},
+     (const struct Key_value)
+     {
+      .key = "CONTENT",
+      .value = "<h3>Новый пользователь</h3>"
+     },
      (const struct Key_value){.key = NULL, .value = NULL}
     };
   read_replace_write("htmlt/user_add.html", map, NULL);
