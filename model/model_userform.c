@@ -25,7 +25,12 @@ const char **model_userform_attribute_labels(void)
 {
   static const char *labels[USERFORM_ELEMENT_COUNT] =
     {
-     [USERFORM_USERNAME_INDEX] = "Login",
+     [USERFORM_USERNAME_INDEX] = "Логин",
+     [USERFORM_PASSWORD_INDEX] = "Пароль",
+     [USERFORM_CONFIRM_PASSWORD_INDEX] = "Подтвердить пароль",
+     [USERFORM_SURNAME_INDEX] = "Фамилия",
+     [USERFORM_NAME_INDEX] = "Имя",
+     [USERFORM_MIDDLENAME_INDEX] = "Отчество",
     };
   return labels;
 }

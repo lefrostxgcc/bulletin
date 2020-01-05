@@ -24,9 +24,30 @@ void render_user_add(const struct Model_user *user)
     {
      {.key = "LOGIN_HREF", .value = login_href},
      {.key = "LOGIN", .value = login_caption},
-     {.key = "USERFORM_LOGIN_LABEL", .value = labels[USERFORM_USERNAME_INDEX]},
-     {.key = "USERFORM_PASSWORD_LABEL", .value = "Пароль"},
-     {.key = "USERFORM_CONFIRM_PASSWORD_LABEL", .value = "Подтвердить пароль"},
+     {
+      .key = "USERFORM_LOGIN_LABEL",
+      .value = labels[USERFORM_USERNAME_INDEX]
+     },
+     {
+      .key = "USERFORM_PASSWORD_LABEL",
+      .value = labels[USERFORM_PASSWORD_INDEX]
+     },
+     {
+      .key = "USERFORM_CONFIRM_PASSWORD_LABEL",
+      .value = labels[USERFORM_CONFIRM_PASSWORD_INDEX]
+     },
+     {
+      .key = "USERFORM_SURNAME_LABEL",
+      .value = labels[USERFORM_SURNAME_INDEX]
+     },
+     {
+      .key = "USERFORM_NAME_LABEL",
+      .value = labels[USERFORM_NAME_INDEX]
+     },
+     {
+      .key = "USERFORM_MIDDLENAME_LABEL",
+      .value = labels[USERFORM_MIDDLENAME_INDEX]
+     },
      {.key = NULL, .value = NULL}
     };
   read_replace_write("htmlt/user_add.html", map, NULL);
