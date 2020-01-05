@@ -24,5 +24,10 @@
   color: white;
   transition: .3s linear;
 }
+.userform_row {width: 100%; }
+.block_field{margin: 10px;}
+.userform_col_1{display: inline-block; width: 40%; float: left;}
+.userform_col_2{display: inline-block; width: 40%; float: left;}
+.wide {width: 100%; box-sizing: border-box;}
 .menu-main a:hover {background: #777777;}
 

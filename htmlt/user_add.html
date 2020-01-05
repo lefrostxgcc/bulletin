@@ -23,19 +23,37 @@
       </nav>
     </header>
     <form action="/user/add" method="post">
-      <p><label>{USERFORM_LOGIN_LABEL}</label></p>
-      <p><input name="login"></p>
-      <p><label>{USERFORM_PASSWORD_LABEL}</label></p>
-      <p><input name="password" type="password"></p>
-      <p><label>{USERFORM_CONFIRM_PASSWORD_LABEL}</label></p>
-      <p><input name="confirm_password" type="password"></p>
-      <p><label>{USERFORM_SURNAME_LABEL}</label></p>
-      <p><input name="surname"></p>
-      <p><label>{USERFORM_NAME_LABEL}</label></p>
-      <p><input name="name"></p>
-      <p><label>{USERFORM_MIDDLENAME_LABEL}</label></p>
-      <p><input name="middlename"></p>
-      <p><button type="submit">Сохранить</button></p>
+      <div class="userform_col_1">
+	<div class="block_field">
+	  <label>{USERFORM_LOGIN_LABEL}</label>
+	  <input name="login" class="wide">
+	</div>
+	<div class="block_field">
+	  <label>{USERFORM_PASSWORD_LABEL}</label>
+	  <input name="password" type="password" class="wide">
+	</div>
+	<div class="block_field">
+	  <label>{USERFORM_CONFIRM_PASSWORD_LABEL}</label>
+	  <input name="confirm_password" type="password" class="wide">
+	</div>
+      </div>
+      <div class="userform_col_2">
+	<div class="block_field">
+	  <label>{USERFORM_SURNAME_LABEL}</label>
+	  <input name="surname" class="wide">
+	</div>
+	<div class="block_field">
+	  <label>{USERFORM_NAME_LABEL}</label>
+	  <input name="name" class="wide">
+	</div>
+	<div class="block_field">
+	  <label>{USERFORM_MIDDLENAME_LABEL}</label>
+	  <input name="middlename" class="wide">
+	</div>
+	<div class="block_field">
+	  <button type="submit">Сохранить</button>
+	</div>
+      </div>
     </form>
   </body>
 </html>
