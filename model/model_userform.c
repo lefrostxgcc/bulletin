@@ -1,5 +1,10 @@
+#include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "model_userform.h"
+
+#define MAX_CONTENT_LEN 1600
+#define MAX_FIELD_LEN 255
 
 int model_userform_validate(const struct Model_userform *userform)
 {
@@ -33,4 +38,22 @@ const char **model_userform_attribute_labels(void)
      [USERFORM_MIDDLENAME_INDEX] = "Отчество",
     };
   return labels;
+}
+
+int model_userform_load_post(struct Model_userform *userform)
+{
+  const char *content_length = getenv("CONTENT_LENGTH");
+  if (content_length == NULL)
+      return 0;
+  char content[MAX_CONTENT_LEN + 1] = {'\0'};
+  int length = atoi(content_length);
+  fgets(content, length + 1, stdin);
+  memset(userform, '\0', sizeof(struct Model_userform));
+  sscanf(content,
+	 "login=%255[^&]&password=%255[^&]&confirm_password=%255[^&]"
+	 "&surname=%255[^&]&name=%255[^&]&middlename=%255[^&]",
+	 userform->username, userform->password,
+	 userform->confirm_password, userform->surname,
+	 userform->name, userform->middlename);
+  return 1;
 }

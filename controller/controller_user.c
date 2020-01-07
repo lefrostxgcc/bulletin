@@ -4,6 +4,8 @@
 #include "../model/model_user.h"
 #include "../model/model_userinfo.h"
 #include "../view/user/view_user.h"
+#include "../view/site/view_site.h"
+#include "../model/model_userform.h"
 
 static inline void controller_user_action_index(void)
 {
@@ -19,11 +21,16 @@ static inline void controller_user_action_index(void)
 
 static inline void controller_user_action_add(void)
 {
-  const int user_id = session_get_curr_user_id();
-  struct Model_user *user =
-    model_user_select_by_id(user_id);
-  render_user_add(user);
-  model_user_free(user);
+  struct Model_userform userform;
+  if (model_userform_load_post(&userform))
+    {
+      if (model_userform_validate(&userform) == USERFORM_VALID)
+	{
+	  session_redirect("/site/login");
+	  return;
+	}
+    }
+  render_user_add(NULL);
 }
 
 void controller_user_action(const char *request_uri)

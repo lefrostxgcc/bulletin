@@ -34,6 +34,7 @@ struct Model_userform
   char middlename[256];
 };
 
+int model_userform_load_post(struct Model_userform *userform);
 int model_userform_validate(const struct Model_userform *userform);
 
 const char **model_userform_attribute_labels(void);
