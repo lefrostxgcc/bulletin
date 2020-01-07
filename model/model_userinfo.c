@@ -37,3 +37,20 @@ void model_userinfo_free(struct Model_userinfo *userinfo)
 {
   free(userinfo);
 }
+
+int model_userinfo_save(const struct Model_userinfo *userinfo)
+{
+  if (!userinfo)
+    return 0;
+  char query[1024];
+  MYSQL *conn = mysql_init(NULL);
+  mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
+  snprintf(query, sizeof query / sizeof query[0],
+	   "INSERT INTO `userinfo`(`user_id`,`surname`,`name`,`middlename`)"
+	   " VALUES ('%d', '%s', '%s', '%s')",
+	   userinfo->user_id, userinfo->surname,
+	   userinfo->name, userinfo->middlename);
+  mysql_query(conn, query);
+  mysql_close(conn);
+  return 1;
+}

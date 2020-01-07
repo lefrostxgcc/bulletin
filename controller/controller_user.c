@@ -26,6 +26,17 @@ static inline void controller_user_action_add(void)
     {
       if (model_userform_validate(&userform) == USERFORM_VALID)
 	{
+	  struct Model_user user = {'\0'};
+	  strcpy(user.username, userform.username);
+	  strcpy(user.password, userform.password);
+	  model_user_save(&user);
+	  struct Model_userinfo userinfo = {'\0'};
+	  userinfo.user_id = model_user_find_user_id(userform.username,
+						     userform.password);
+	  strcpy(userinfo.surname, userform.surname);
+	  strcpy(userinfo.name, userform.name);
+	  strcpy(userinfo.middlename, userform.middlename);
+	  model_userinfo_save(&userinfo);
 	  session_redirect("/site/login");
 	  return;
 	}

@@ -12,5 +12,6 @@ struct Model_userinfo
 
 struct Model_userinfo* model_userinfo_select_by_user_id(int user_id);
 void model_userinfo_free(struct Model_userinfo *userinfo);
+int model_userinfo_save(const struct Model_userinfo *userinfo);
 
 #endif

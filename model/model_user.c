@@ -67,3 +67,23 @@ int model_user_find_user_id(const char *username,
   mysql_close(conn);
   return id;
 }
+
+int model_user_save(const struct Model_user *user)
+{
+  if (!user)
+    return 0;
+  unsigned char md5digest[MD5_DIGEST_LENGTH + 1] = {'\0'};
+  MD5((const unsigned char *)user->password, strlen(user->password), md5digest);
+  char md5pass[64] = {'\0'};
+  for (int i = 0; i < MD5_DIGEST_LENGTH; ++i)
+    snprintf(md5pass + i * 2, 3, "%02x", md5digest[i]);
+  char query[1024];
+  MYSQL *conn = mysql_init(NULL);
+  mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
+  snprintf(query, sizeof query / sizeof query[0],
+	   "INSERT INTO `user`(`username`,`password`) VALUES ('%s', '%s')",
+	   user->username, md5pass);
+  mysql_query(conn, query);
+  mysql_close(conn);
+  return 1;
+}
