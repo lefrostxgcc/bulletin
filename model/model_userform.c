@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "../controller/session.h"
 #include "model_userform.h"
 
 #define MAX_CONTENT_LEN 1600
@@ -48,6 +49,7 @@ int model_userform_load_post(struct Model_userform *userform)
   char content[MAX_CONTENT_LEN + 1] = {'\0'};
   int length = atoi(content_length);
   fgets(content, length + 1, stdin);
+  unescape_url(content);
   memset(userform, '\0', sizeof(struct Model_userform));
   sscanf(content,
 	 "login=%255[^&]&password=%255[^&]&confirm_password=%255[^&]"

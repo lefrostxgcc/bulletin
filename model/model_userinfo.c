@@ -13,6 +13,7 @@ struct Model_userinfo* model_userinfo_select_by_user_id(int user_id)
   char query[256];
   conn = mysql_init(NULL);
   mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
+  mysql_query(conn, "set names utf8");
   snprintf(query, sizeof query / sizeof query[0],
 	   "SELECT `id`, `user_id`, `surname`, `name`, `middlename` "
 	   "FROM `userinfo` WHERE "
@@ -45,6 +46,7 @@ int model_userinfo_save(const struct Model_userinfo *userinfo)
   char query[1024];
   MYSQL *conn = mysql_init(NULL);
   mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
+  mysql_query(conn, "set names utf8");
   snprintf(query, sizeof query / sizeof query[0],
 	   "INSERT INTO `userinfo`(`user_id`,`surname`,`name`,`middlename`)"
 	   " VALUES ('%d', '%s', '%s', '%s')",

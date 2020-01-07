@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "view_site.h"
 #include "../read_replace_write.h"
 

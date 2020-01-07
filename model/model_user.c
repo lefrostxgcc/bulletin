@@ -16,6 +16,7 @@ struct Model_user* model_user_select_by_id(int id)
   char query[256];
   conn = mysql_init(NULL);
   mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
+  mysql_query(conn, "set names utf8");
   snprintf(query, sizeof query / sizeof query[0],
 	   "SELECT `id`, `username`, `password`, `auth_key`, `access_token` "
 	   "FROM `user` WHERE "
@@ -57,6 +58,7 @@ int model_user_find_user_id(const char *username,
     snprintf(md5pass + i * 2, 3, "%02x", md5digest[i]);
   conn = mysql_init(NULL);
   mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
+  mysql_query(conn, "set names utf8");
   snprintf(query, 256, "SELECT `id` FROM `user` WHERE "
 	   "`username`='%s' AND `password`='%s';", username, md5pass);
   mysql_query(conn, query);
@@ -80,6 +82,7 @@ int model_user_save(const struct Model_user *user)
   char query[1024];
   MYSQL *conn = mysql_init(NULL);
   mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
+  mysql_query(conn, "set names utf8");
   snprintf(query, sizeof query / sizeof query[0],
 	   "INSERT INTO `user`(`username`,`password`) VALUES ('%s', '%s')",
 	   user->username, md5pass);

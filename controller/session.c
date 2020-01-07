@@ -25,3 +25,32 @@ void session_redirect(const char *url)
     };
   read_replace_write("htmlt/redirect.html", map, NULL);
 }
+
+static char unescape_char(const char *s)
+{
+  char digit = (*s >= 'A') ? *s - 'A' + 10 : *s - '0';
+  digit *= 16;
+  ++s;
+  digit += (*s >= 'A') ? *s - 'A' + 10 : *s - '0';
+  return digit;
+}
+
+void unescape_url(char *url)
+{
+  char *decoded_url = url;
+  while (*url)
+    {
+      if (*url == '%')
+	{
+	  *decoded_url = unescape_char(++url);
+	  ++url;
+	}
+      else if (*url == '+')
+	*decoded_url = ' ';
+      else
+	*decoded_url = *url;
+      ++url;
+      ++decoded_url;
+    }
+  *decoded_url = '\0';
+}
