@@ -19,7 +19,7 @@ static inline void controller_user_action_index(void)
   model_userinfo_free(userinfo);
 }
 
-static inline void controller_user_action_add(void)
+static void controller_user_action_add(void)
 {
   struct Model_userform userform;
   if (model_userform_load_post(&userform))
