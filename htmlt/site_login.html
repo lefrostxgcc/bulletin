@@ -23,19 +23,24 @@
       </nav>
     </header>
     <form action="/site/login" method="post">
-      <table>
-	<tr>
-	  <td><label>Login:</label></td>
-	  <td><input name="login" size="15"></td>
-	</tr>
-	<tr>
-	  <td><label>Password:</label></td>
-	  <td><input name="password" size="15"></td>
-	</tr>
-	<tr>
-	  <td><input type="submit" value="Login"></td>
-	</tr>
-      </table>
+      <div style="margin: 10px">
+	<h1>Вход</h1>
+	<p>Для вход на сайт введите логин и пароль</p>
+	<table cellspacing="5px">
+	  <tr>
+	    <td><label>Логин</label></td>
+	    <td><input name="login" size="15"></td>
+	  </tr>
+	  <tr>
+	    <td><label>Пароль</label></td>
+	    <td><input name="password" size="15"></td>
+	  </tr>
+	  <tr>
+	    <td></td>
+	    <td><input type="submit" value="Войти"></td>
+	  </tr>
+	</table>
+      </div>
     </form>
   </body>
 </html>
