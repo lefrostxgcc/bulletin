@@ -25,13 +25,14 @@ static void controller_site_action_login(void)
       fgets(content, length + 1, stdin);
       char username[MAX_USERNAME_LEN + 1] = {'\0'};
       char password[MAX_PASSWORD_LEN + 1] = {'\0'};
+      char remember[16] = "";
       unescape_url(content);
       sscanf(content,
-	     "login=%15[^&]&password=%15s",
-	     username, password);
+	     "login=%15[^&]&password=%15[^&]&remember=%15s",
+	     username, password, remember);
       const int user_id = model_user_find_user_id(username, password);
       if (user_id > 0)
-	render_site_welcome(user_id);
+	render_site_welcome(user_id, strcmp(remember, "") != 0);
       else
       render_site_login_fail(username);
     }
