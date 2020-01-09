@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "session.h"
 #include "controller_site.h"
 #include "../model/model_user.h"
@@ -9,6 +10,36 @@
 #define MAX_USERNAME_LEN 15
 #define MAX_PASSWORD_LEN 15
 #define MAX_CONTENT_LEN 63
+
+static void login_success(int user_id, int remember)
+{
+  char cookie_header[128] = "";
+  if (remember)
+    {
+      time_t tomorrow = time(NULL) + 24 * 60 * 60;
+      char time_buf[64] = "";
+      strftime(time_buf, sizeof time_buf / sizeof time_buf[0],
+	       "%a, %d %b %Y %H:%M:%S GMT", gmtime(&tomorrow));
+      
+      snprintf(cookie_header,
+	       sizeof(cookie_header) / (sizeof(cookie_header[0])),
+	       "Set-Cookie: UserId=%d; path=/; expires='%s'\n",
+	       user_id, time_buf);
+    }
+  else
+    {
+      snprintf(cookie_header,
+	       sizeof(cookie_header) / (sizeof(cookie_header[0])),
+	       "Set-Cookie: UserId=%d; path=/\n",
+	       user_id);
+    }
+  session_redirect("/", cookie_header);
+}
+
+static void login_fail(void)
+{
+  session_redirect("/site/login", NULL);
+}
 
 static void controller_site_action_login(void)
 {
@@ -32,9 +63,9 @@ static void controller_site_action_login(void)
 	     username, password, remember);
       const int user_id = model_user_find_user_id(username, password);
       if (user_id > 0)
-	render_site_welcome(user_id, strcmp(remember, "") != 0);
+	login_success(user_id, strcmp(remember, "") != 0);
       else
-      render_site_login_fail(username);
+	login_fail();
     }
 }
 
@@ -57,7 +88,7 @@ static void controller_site_action_logout(void)
 	   "Set-Cookie: UserId=%d; path=/;"
 	   " expires=Thu, 01 Jan 1970 00:00:00 GMT\n",
 	   session_get_curr_user_id());
-  session_redirect("/site/index", cookie_header);
+  session_redirect("/", cookie_header);
 }
 
 void controller_site_action(const char *request_uri)
