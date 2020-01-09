@@ -1,29 +1,13 @@
-#include <stdio.h>
+#include <stddef.h>
 #include "view_user.h"
 #include "../read_replace_write.h"
-#include "../../model/model_user.h"
 #include "../../model/model_userform.h"
 
-void render_user_add(const struct Model_user *user)
+void render_user_add(void)
 {
   const char **labels = model_userform_attribute_labels();
-  const char *login_caption = "Вход";
-  const char *login_href = "/site/login";
-  char buf[320];
-  if (user)
-    {
-      snprintf(buf,
-	       sizeof(buf) / sizeof(buf[0]),
-	       "Выход(%s)",
-	       user->username
-	       );
-      login_caption = buf;
-      login_href = "/site/logout";
-    }
   const struct Key_value map[] =
     {
-     {.key = "LOGIN_HREF", .value = login_href},
-     {.key = "LOGIN", .value = login_caption},
      {
       .key = "USERFORM_LOGIN_LABEL",
       .value = labels[USERFORM_USERNAME_INDEX]

@@ -41,7 +41,7 @@ static void controller_user_action_add(void)
 	  return;
 	}
     }
-  render_user_add(NULL);
+  render_user_add();
 }
 
 void controller_user_action(const char *request_uri)
