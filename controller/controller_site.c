@@ -42,7 +42,10 @@ static void controller_site_action_index(void)
 {
   const int user_id = session_get_curr_user_id();
   struct Model_user *user = model_user_select_by_id(user_id);
-  render_site_index(user ? user->username : NULL);
+  if (user)
+    render_site_index(user->username);
+  else
+    render_site_index_guest();
   model_user_free(user);
 }
 
