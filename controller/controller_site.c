@@ -51,7 +51,13 @@ static void controller_site_action_index(void)
 
 static void controller_site_action_logout(void)
 {
-  render_site_logout(session_get_curr_user_id());
+  char cookie_header[128] = "";
+  snprintf(cookie_header,
+	   sizeof(cookie_header) / (sizeof(cookie_header[0])),
+	   "Set-Cookie: UserId=%d; path=/;"
+	   " expires=Thu, 01 Jan 1970 00:00:00 GMT\n",
+	   session_get_curr_user_id());
+  session_redirect("/site/index", cookie_header);
 }
 
 void controller_site_action(const char *request_uri)

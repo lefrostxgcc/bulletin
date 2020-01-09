@@ -16,14 +16,14 @@ int session_get_curr_user_id(void)
   return user_id;
 }
 
-void session_redirect(const char *url)
+void session_redirect(const char *url, const char *http_headers)
 {
   const struct Key_value map[] =
     {
      {.key = "REDIRECT_HREF", .value = url},
      {.key = NULL, .value = NULL}
     };
-  read_replace_write("htmlt/redirect.html", map, NULL);
+  read_replace_write("htmlt/redirect.html", map, http_headers);
 }
 
 static char unescape_char(const char *s)

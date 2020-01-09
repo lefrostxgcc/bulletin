@@ -37,7 +37,7 @@ static void controller_user_action_add(void)
 	  strcpy(userinfo.name, userform.name);
 	  strcpy(userinfo.middlename, userform.middlename);
 	  model_userinfo_save(&userinfo);
-	  session_redirect("/site/login");
+	  session_redirect("/site/login", NULL);
 	  return;
 	}
     }
