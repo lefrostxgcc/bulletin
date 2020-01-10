@@ -3,6 +3,7 @@
 #include <string.h>
 #include "controller/controller_user.h"
 #include "controller/controller_site.h"
+#include "controller/controller_bulletins.h"
 
 int main(void)
 {
@@ -15,6 +16,8 @@ int main(void)
     controller_user_action(request_uri);
   else if (strcmp(request_uri, "/user/add") == 0)
     controller_user_action(request_uri);
+  else if (strcmp(request_uri, "/bulletins/index") == 0)
+    controller_bulletins_action(request_uri);
   else
     controller_site_action(request_uri);
 }

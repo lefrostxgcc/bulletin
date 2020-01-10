@@ -1,13 +1,15 @@
-.PHONY: all clean install
+.PHONY: all clean install install_bin install_data install_config \
+	uninstall
 
-CFLAGS=-Wall -Wextra `pkg-config --cflags mariadb`
+CFLAGS=-Wall -Wextra -Werror `pkg-config --cflags mariadb`
 LDLIBS=`pkg-config --libs mariadb` -lcrypto
 project:=bulletin
 name:= index.cgi
 sources:= $(wildcard *.c controller/*.c model/*.c view/*.c \
-	view/site/*.c view/user/*.c)
+	view/site/*.c view/user/*.c view/bulletins/*.c)
 htmlt_files:= $(wildcard htmlt/*.html)
 css_files:= $(wildcard css/*.css)
+data_files:= $(htmlt_files) $(css_files)
 objects:= $(sources:.c=.o)
 deps:= $(sources:.c=.d)
 prefix:=/var/www/$(project)
@@ -29,16 +31,25 @@ $(name): $(objects)
 	sed 's,.*o[ :],$*\.o $*\.d :,g' < $@.$$$$ > $@; \
 	rm -f $@.$$$$
 
-install: all
-	-mkdir $(htmltdir)
-	-mkdir $(cssdir)
-	$(install_bin) $(name) $(bindir)/$(name)
-	$(install_data) $(htaccess) $(bindir)
-	$(install_data) $(htmlt_files) $(htmltdir)
-	$(install_data) $(css_files) $(cssdir)
+install: install_bin install_config install_data
+
+install_bin: all
+	$(install_bin) $(name) $(bindir)
 	chcon -t httpd_sys_script_exec_t $(bindir)/$(name)
+
+install_config: $(htaccess)
+	$(install_data) $(htaccess) $(bindir)
+
+install_data: $(data_files)
+	-mkdir $(htmltdir)
+	$(install_data) $(htmlt_files) $(htmltdir)
+	-mkdir $(cssdir)
+	$(install_data) $(css_files) $(cssdir)
 
 clean:
 	rm -f $(name) $(objects)
+
+uninstall:
+	rm -rf $(bindir)/*
 
 include $(deps)
