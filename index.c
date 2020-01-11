@@ -16,7 +16,7 @@ int main(void)
     controller_user_action(request_uri);
   else if (strcmp(request_uri, "/user/add") == 0)
     controller_user_action(request_uri);
-  else if (strcmp(request_uri, "/bulletins/index") == 0)
+  else if (strstr(request_uri, "/bulletins/") == request_uri)
     controller_bulletins_action(request_uri);
   else
     controller_site_action(request_uri);
