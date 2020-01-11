@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/css/styles.css">
+  </head>
+  <body>
+    <header>
+      <nav class="top-menu">
+	<ul class="menu-main">
+	  <li class="left-item">
+	    <a href="/">Доска объявлений</a>
+	  </li>
+	  <li class="right-item">
+	    <a href="/site/logout">Выход ({LOGIN})</a>
+	  </li>
+	  <li class="right-item">
+	    <a href="/user/index">Информация о пользователе</a>
+	  </li>
+	  <li class="right-item">
+	    <a href="/bulletins/index">Мои объявления</a>
+	  </li>
+	</ul>
+      </nav>
+    </header>
+    <div class="row">
+      <a class="btn" href="/bulletins/add">Добавить объявление</a>
+    </div>
+    <div class="row">
+      <nav>
+	<ul class="tabs">
+          <li class="left-item tab">
+            <a class="btn-without-border" href="/bulletins/index/public">
+              Опубликованные
+            </a>
+          </li>
+          <li class="left-item tab">
+            <a class="btn-without-border" href="/bulletins/index/wait">
+              Черновики
+            </a>
+          </li>
+          <li class="left-item tab active">
+            <a class="btn-without-border" href="/bulletins/index/deleted">
+              Удаленные
+            </a>
+          </li>
+	</ul>
+      </nav>
+      <div class="tab-content">
+        <table class="table">
+	  <tr>
+	    <th>№</th>
+	    <th>Объявление</th>
+	    <th>Управление</th>
+	  </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
