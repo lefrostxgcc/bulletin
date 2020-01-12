@@ -38,7 +38,9 @@ static void controller_bulletins_action_index_deleted(void)
 
 void controller_bulletins_action(const char *request_uri)
 {
-  if (strcmp(request_uri, "/bulletins/index") == 0)
+  if(session_get_curr_user_id() == 0)
+    session_redirect("/site/login", NULL);
+  else if (strcmp(request_uri, "/bulletins/index") == 0)
     controller_bulletins_action_index();
   else if (strcmp(request_uri, "/bulletins/index/public") == 0)
     controller_bulletins_action_index_public();
