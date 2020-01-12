@@ -34,12 +34,27 @@
     color: black;
     border-radius: 5px;
     border: 1px solid gray;
-    padding: 5px;
+    padding: 8px;
     text-decoration: none;
 }
 
 .btn:hover {
     background-color: lightgray;
+}
+
+.btn-warning {
+    color: white;
+    background-color: orange;
+}
+
+.btn-danger {
+    color: white;
+    background-color: red;
+}
+
+.btn-success {
+    color: white;
+    background-color: green;
 }
 
 .tabs {
@@ -62,6 +77,14 @@
     border-top: 1px solid gray;
 }
 
+.top-border {
+    border-top: 1px solid gray;
+}
+
+.bottom-border {
+    border-bottom: 1px solid gray;
+}
+
 .btn-without-border {
     color: black;
     padding: 5px;
@@ -70,6 +93,19 @@
 
 .table {
     width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    border-top: 1px solid gray;
+    padding: 18px;
+    text-align: left;
+}
+
+td {
+    border-top: 1px solid #ddd;
+    padding: 14px;
+    text-align: left;
 }
 
 .active {
