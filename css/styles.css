@@ -38,23 +38,30 @@
     text-decoration: none;
 }
 
+a i {
+    vertical-align: text-bottom;
+}
+
 .btn:hover {
     background-color: lightgray;
 }
 
 .btn-warning {
     color: white;
-    background-color: orange;
+    background-color: #f0ad4e;
+    border-color: #eea236;
 }
 
 .btn-danger {
     color: white;
-    background-color: red;
+    background-color: #d9534f;
+    border-color: #d43f3a;
 }
 
 .btn-success {
     color: white;
-    background-color: green;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
 }
 
 .tabs {
