@@ -160,6 +160,17 @@ td {
 
 @media screen and (min-width: 600px) {
     main {
+	padding-left: 50px;
+	padding-right: 50px;
+    }
+    .col-left, .col-right {
+	float: left;
+	width: 50%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    main {
 	padding-left: 15%;
 	padding-right: 15%;
     }
