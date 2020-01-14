@@ -36,6 +36,14 @@ static void controller_bulletins_action_index_deleted(void)
   model_user_free(user);
 }
 
+static void controller_bulletins_action_addbulletin(void)
+{
+  const int user_id = session_get_curr_user_id();
+  struct Model_user *user = model_user_select_by_id(user_id);
+  render_bulletins_addbulletin(user->username);
+  model_user_free(user);
+}
+
 void controller_bulletins_action(const char *request_uri)
 {
   if(session_get_curr_user_id() == 0)
@@ -48,6 +56,8 @@ void controller_bulletins_action(const char *request_uri)
     controller_bulletins_action_index_wait();
   else if (strcmp(request_uri, "/bulletins/index/deleted") == 0)
     controller_bulletins_action_index_deleted();
+  else if (strcmp(request_uri, "/bulletins/addbulletin") == 0)
+    controller_bulletins_action_addbulletin();
   else
     session_redirect("/bulletins/index", NULL);
 }

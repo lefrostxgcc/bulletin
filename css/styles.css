@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .top-menu {
   position: relative;
   background: rgb(189,185,185);
@@ -36,14 +40,21 @@
     border: 1px solid gray;
     padding: 8px;
     text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    color: white;
+    background-color: blue;
+}
+
+.btn-primary:hover {
+    color: white;
+    background-color: red;
 }
 
 a i {
     vertical-align: text-bottom;
-}
-
-.btn:hover {
-    background-color: lightgray;
 }
 
 .btn-warning {
@@ -129,4 +140,51 @@ td {
 .userform_col_2{display: inline-block; width: 40%; float: left;}
 .wide {width: 100%; box-sizing: border-box;}
 .menu-main a:hover {background: #777777;}
+
+.col-left {
+    float: left;
+    width: 100%;
+    padding: 20px;
+}
+
+.col-right {
+    float: left;
+    width: 100%;
+    padding: 20px;
+}
+
+.form-bulletin {
+    border-radius: 5px;
+    border: 1px solid #dff0d8;
+}
+
+@media screen and (min-width: 600px) {
+    main {
+	padding-left: 15%;
+	padding-right: 15%;
+    }
+    .col-left, .col-right {
+	float: left;
+	width: 50%;
+    }
+
+}
+
+.form-bulletin input[type="text"], .form-bulletin textarea {
+    width: 100%;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.form-bulletin header {
+    padding: 12px 10px;
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-bottom: 1px solid #d6e9c6;
+}
+
+.form-bulletin main {
+    padding: 10px;
+}
+
 

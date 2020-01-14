@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/styles.css">
+  </head>
+  <body>
+    <header>
+      <nav class="top-menu">
+	<ul class="menu-main">
+	  <li class="left-item">
+	    <a href="/">Доска объявлений</a>
+	  </li>
+	  <li class="right-item">
+	    <a href="/site/logout">Выход ({LOGIN})</a>
+	  </li>
+	  <li class="right-item">
+	    <a href="/user/index">Информация о пользователе</a>
+	  </li>
+	  <li class="right-item">
+	    <a href="/bulletins/index">Мои объявления</a>
+	  </li>
+	</ul>
+      </nav>
+    </header>
+    <main>
+    <form action="/bulletins/addbulletin" method="post">
+      <div class="row">
+	<div class="col-left">
+	  <div class="form-bulletin">
+	    <header>
+	      Добавить объявление
+	    </header>
+	    <main>
+	      <label for="ftitle"> Заголовок </label>
+	      <input type="text" id="ftitle" name="title" />
+	      <label for="finfo"> Информация </label>
+	      <textarea id="finfo" name="info"></textarea>
+	      <label for="fcontacts"> Контакты </label>
+	      <textarea id="fcontacts" name="contacts"></textarea>
+	    </main>
+	  </div>
+	</div>
+	<div class="col-right">
+	  <div class="form-bulletin">
+	    <header>Добавить атрибуты</header>
+	    <main>
+	      <label for="fcity"> Город </label>
+	      <input type="text" id="fcity" name="city" />
+	      <label for="fprice"> Цена </label>
+	      <input type="text" id="fprice" name="price" />
+	      <input class="btn btn-primary" type="submit" value="Сохранить" />
+	    </main>
+	  </div>
+	</div>
+      </div>
+    </form>
+    </main>
+  </body>
+</html>
