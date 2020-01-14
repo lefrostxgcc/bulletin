@@ -172,8 +172,12 @@ td {
 
 .form-bulletin input[type="text"], .form-bulletin textarea {
     width: 100%;
+    margin-top: 3px;
     margin-bottom: 12px;
     box-sizing: border-box;
+    border: 1px solid lightgray;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .form-bulletin header {
