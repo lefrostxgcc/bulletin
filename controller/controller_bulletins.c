@@ -2,6 +2,8 @@
 #include "controller_bulletins.h"
 #include "session.h"
 #include "../model/model_user.h"
+#include "../model/model_bulletins.h"
+#include "../model/model_bulletinsform.h"
 #include "../view/bulletins/view_bulletins.h"
 
 static void controller_bulletins_action_index(void)
@@ -38,8 +40,20 @@ static void controller_bulletins_action_index_deleted(void)
 
 static void controller_bulletins_action_addbulletin(void)
 {
-  const int user_id = session_get_curr_user_id();
-  struct Model_user *user = model_user_select_by_id(user_id);
+  const int session_user_id = session_get_curr_user_id();
+  struct Model_bulletinsform form;
+  if (model_bulletinsform_load_by_post_request(&form))
+    {
+      if (model_bulletinsform_validate(&form) == BULLETINSFORM_VALID)
+	{
+	  struct Model_bulletins bulletin;
+	  model_bulletins_set_new(&bulletin, &form, session_user_id);
+	  model_bulletins_save(&bulletin);
+	  session_redirect("/bulletins/index", NULL);
+	  return;
+	}
+    }
+  struct Model_user *user = model_user_select_by_id(session_user_id);
   render_bulletins_addbulletin(user->username);
   model_user_free(user);
 }

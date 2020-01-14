@@ -35,4 +35,7 @@ model_bulletinsform_validate(const struct Model_bulletinsform *bulletinsform);
 
 const char **model_bulletinsform_attribute_labels(void);
 
+int
+model_bulletinsform_load_by_post_request(struct Model_bulletinsform *form);
+
 #endif

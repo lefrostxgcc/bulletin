@@ -1,5 +1,11 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "model_bulletinsform.h"
+#include "../controller/session.h"
+
+#define MAX_CONTENT_LEN 3200
+#define MAX_FIELD_LEN 255
 
 int
 model_bulletinsform_validate(const struct Model_bulletinsform *bulletinsform)
@@ -30,3 +36,23 @@ const char **model_bulletinsform_attribute_labels(void)
     };
   return labels;
 }
+
+int
+model_bulletinsform_load_by_post_request(struct Model_bulletinsform *form)
+{
+  const char *content_length = getenv("CONTENT_LENGTH");
+  if (content_length == NULL)
+      return 0;
+  char content[MAX_CONTENT_LEN + 1] = {'\0'};
+  int length = atoi(content_length);
+  fgets(content, length + 1, stdin);
+  unescape_url(content);
+  memset(form, '\0', sizeof(struct Model_bulletinsform));
+  sscanf(content,
+	 "title=%255[^&]&info=%255[^&]&contacts=%255[^&]"
+	 "&city=%255[^&]&price=%lf",
+	 form->title, form->info, form->contacts,
+	 form->city, &form->price);
+  return 1;
+}
+
