@@ -11,7 +11,10 @@ static void controller_bulletins_action_index(void)
 {
   const int user_id = session_get_curr_user_id();
   struct Model_user *user = model_user_select_by_id(user_id);
-  render_bulletins_index(user->username);
+  struct Model_bulletins *bulletins =
+    select_bulletins_by_userid_and_status(user_id, "wait");
+  render_bulletins_index(user->username, bulletins);
+  free(bulletins);
   model_user_free(user);
 }
 
@@ -19,7 +22,10 @@ static void controller_bulletins_action_index_public(void)
 {
   const int user_id = session_get_curr_user_id();
   struct Model_user *user = model_user_select_by_id(user_id);
-  render_bulletins_index_public(user->username);
+  struct Model_bulletins *bulletins =
+    select_bulletins_by_userid_and_status(user_id, "public");
+  render_bulletins_index_public(user->username, bulletins);
+  free(bulletins);
   model_user_free(user);
 }
 
@@ -38,7 +44,10 @@ static void controller_bulletins_action_index_deleted(void)
 {
   const int user_id = session_get_curr_user_id();
   struct Model_user *user = model_user_select_by_id(user_id);
-  render_bulletins_index_deleted(user->username);
+  struct Model_bulletins *bulletins =
+    select_bulletins_by_userid_and_status(user_id, "delete");
+  render_bulletins_index_deleted(user->username, bulletins);
+  free(bulletins);
   model_user_free(user);
 }
 

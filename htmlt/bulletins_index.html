@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet"
+	  href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
   <body>
     <header>
@@ -28,14 +31,14 @@
     <div class="row">
       <nav>
 	<ul class="tabs">
-          <li class="left-item tab active">
-            <a class="btn-without-border" href="/bulletins/index/public">
-              Опубликованные
+	  <li class="left-item tab active">
+            <a class="btn-without-border" href="/bulletins/index/wait">
+              Черновики
             </a>
           </li>
           <li class="left-item tab">
-            <a class="btn-without-border" href="/bulletins/index/wait">
-              Черновики
+            <a class="btn-without-border" href="/bulletins/index/public">
+              Опубликованные
             </a>
           </li>
           <li class="left-item tab">
@@ -52,6 +55,7 @@
 	    <th>Объявление</th>
 	    <th>Управление</th>
 	  </tr>
+	  {BULLETINS_WAIT_ROWS}
         </table>
       </div>
     </div>
