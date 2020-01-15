@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 #include "controller_bulletins.h"
 #include "session.h"
 #include "../model/model_user.h"
@@ -26,13 +27,10 @@ static void controller_bulletins_action_index_wait(void)
 {
   const int user_id = session_get_curr_user_id();
   struct Model_user *user = model_user_select_by_id(user_id);
-  struct Model_bulletins bulletins[] =
-    {
-     {.id = 1, .title = "Продается домикг"},
-     {.id = 2, .title = "Продается коляскаг"},
-     {.id = 0}
-    };
+  struct Model_bulletins *bulletins =
+    select_bulletins_by_userid_and_status(user_id, "wait");
   render_bulletins_index_wait(user->username, bulletins);
+  free(bulletins);
   model_user_free(user);
 }
 
