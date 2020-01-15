@@ -1,12 +1,40 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "view_bulletins.h"
 #include "../read_replace_write.h"
 
 struct Bulletins_wait_row
 {
-  const char *id;
-  const char *title;
+  char id[256];
+  char title[256];
 };
+
+static struct Bulletins_wait_row *
+alloc_wait_rows(const struct Model_bulletins model[])
+{
+  const struct Model_bulletins *p = model;
+  int row_count = 0;
+  while (p->id != 0)
+    {
+      ++p;
+      ++row_count;
+    }
+  struct Bulletins_wait_row *rows =
+    calloc(row_count + 1, sizeof(struct Bulletins_wait_row));
+  for (int i = 0; i < row_count; i++)
+    {
+      snprintf(rows[i].id, sizeof(rows[i].id)/(sizeof(rows[i].id[0])),
+	       "%d", model[i].id);
+      strcpy(rows[i].title, model[i].title);
+    }
+  return rows;
+}
+
+void free_wait_rows(struct Bulletins_wait_row *rows)
+{
+  free(rows);
+}
 
 void render_bulletins_index(const char *username)
 {
@@ -34,7 +62,7 @@ void print_wait_rows(const char *filename, void *embed)
   FILE *f = fopen(filename, "r");
   if (!f)
     return;
-  while (rows->id)
+  while (strlen(rows->id) > 0)
     {
       const struct Key_value map[] =
 	{
@@ -49,14 +77,10 @@ void print_wait_rows(const char *filename, void *embed)
   fclose(f);
 }
 
-void render_bulletins_index_wait(const char *username)
+void render_bulletins_index_wait(const char *username,
+				 const struct Model_bulletins bulletins[])
 {
-  struct Bulletins_wait_row embed[] =
-    {
-     {.id = "1", .title = "Продается домик"},
-     {.id = "2", .title = "Продается коляска"},
-     {.id = NULL, .title = NULL}
-    };
+  struct Bulletins_wait_row *embed = alloc_wait_rows(bulletins);
   const struct Key_value map[] =
     {
      {.key = "LOGIN", .value = username},
@@ -69,6 +93,7 @@ void render_bulletins_index_wait(const char *username)
      {.key = NULL, .value = NULL}
     };
   read_replace_write("htmlt/bulletins_index_wait.html", map, NULL);
+  free_wait_rows(embed);
 }
 
 void render_bulletins_index_deleted(const char *username)

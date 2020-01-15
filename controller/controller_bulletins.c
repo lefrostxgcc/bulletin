@@ -26,7 +26,13 @@ static void controller_bulletins_action_index_wait(void)
 {
   const int user_id = session_get_curr_user_id();
   struct Model_user *user = model_user_select_by_id(user_id);
-  render_bulletins_index_wait(user->username);
+  struct Model_bulletins bulletins[] =
+    {
+     {.id = 1, .title = "Продается домикг"},
+     {.id = 2, .title = "Продается коляскаг"},
+     {.id = 0}
+    };
+  render_bulletins_index_wait(user->username, bulletins);
   model_user_free(user);
 }
 
