@@ -2,29 +2,36 @@
 #include <string.h>
 #include "read_replace_write.h"
 
-static const char *find_value_by_key(const char *key,
-				     const struct Key_value map[])
+static int find_record_by_key(const char *key,
+			     const struct Key_value map[])
 {
   if (!key || !map)
-    return NULL;
+    return -1;
+  int i = 0;
   while (map->key)
     {
       if (strcmp(key, map->key) == 0)
-	return map->value;
+	return i;
       ++map;
+      ++i;
     }
-  return NULL;
+  return -1;
 }
 
 static void replace_func(const char *placeholder,
 			 const struct Key_value map[],
 			 int status)
 {
-  const char *value = NULL;
+  int i = 0;
   if (status != 1)
     printf("%s", placeholder);
-  else if ((value = find_value_by_key(placeholder, map)))
-    printf("%s", value);
+  else if ((i = find_record_by_key(placeholder, map)) >= 0)
+    {
+      if (map[i].cb_print_embed == NULL)
+	printf("%s", map[i].value);
+      else
+	map[i].cb_print_embed(map[i].value, map[i].embed);
+    }
   else
     printf("%s", placeholder);
 }

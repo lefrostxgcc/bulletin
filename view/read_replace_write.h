@@ -5,6 +5,8 @@ struct Key_value
 {
   const char *key;
   const char *value;
+  char **embed;
+  void (*cb_print_embed)(const char *filename, char **embed);
 };
 
 void read_replace_write(const char *filename,
