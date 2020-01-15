@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "controller_bulletins.h"
 #include "session.h"
 #include "../model/model_user.h"
@@ -61,7 +62,7 @@ static void controller_bulletins_action_addbulletin(void)
 	{
 	  struct Model_bulletins bulletin;
 	  model_bulletins_set_new(&bulletin, &form, session_user_id);
-	  model_bulletins_save(&bulletin);
+	  model_bulletins_insert(&bulletin);
 	  session_redirect("/bulletins/index", NULL);
 	  return;
 	}
@@ -69,6 +70,33 @@ static void controller_bulletins_action_addbulletin(void)
   struct Model_user *user = model_user_select_by_id(session_user_id);
   render_bulletins_addbulletin(user->username);
   model_user_free(user);
+}
+
+static int get_bulletin_id_from_query_string(void)
+{
+  const char *query_string = getenv("QUERY_STRING");
+  int id = 0;
+  if (!query_string)
+    return 0;
+  if (sscanf(query_string, "id=%d", &id) != 1)
+    return 0;
+  return id;
+}
+
+static void controller_bulletins_action_public(void)
+{
+  int id = get_bulletin_id_from_query_string();
+  if (id > 0)
+    {
+      struct Model_bulletins *bulletin = select_bulletin_by_id(id);
+      if (bulletin)
+	{
+	  model_bulletins_set_public(bulletin);
+	  model_bulletins_update(bulletin);
+	  free(bulletin);
+	}
+    }
+  session_redirect("/bulletins/index", NULL);
 }
 
 void controller_bulletins_action(const char *request_uri)
@@ -85,6 +113,8 @@ void controller_bulletins_action(const char *request_uri)
     controller_bulletins_action_index_deleted();
   else if (strcmp(request_uri, "/bulletins/addbulletin") == 0)
     controller_bulletins_action_addbulletin();
+  else if (strstr(request_uri, "/bulletins/public?id=") == request_uri)
+    controller_bulletins_action_public();
   else
     session_redirect("/bulletins/index", NULL);
 }

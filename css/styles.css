@@ -4,7 +4,7 @@
 
 .top-menu {
   position: relative;
-  background: rgb(189,185,185);
+  background: #101010;
 }
 .menu-main {
   list-style: none;
@@ -46,6 +46,12 @@
 .btn-primary {
     color: white;
     background-color: blue;
+}
+
+.btn-info {
+    color: white;
+    background-color: #5bc0de;
+    border-color: #46b8da;
 }
 
 .btn-primary:hover {
