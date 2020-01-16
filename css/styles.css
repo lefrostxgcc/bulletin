@@ -41,6 +41,7 @@
 }
 
 .btn {
+    display: inline-block;
     color: black;
     border-radius: 5px;
     border: 1px solid gray;

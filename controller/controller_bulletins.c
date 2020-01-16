@@ -99,6 +99,38 @@ static void controller_bulletins_action_public(void)
   session_redirect("/bulletins/index", NULL);
 }
 
+static void controller_bulletins_action_wait(void)
+{
+  int id = get_bulletin_id_from_query_string();
+  if (id > 0)
+    {
+      struct Model_bulletins *bulletin = select_bulletin_by_id(id);
+      if (bulletin)
+	{
+	  model_bulletins_set_wait(bulletin);
+	  model_bulletins_update(bulletin);
+	  free(bulletin);
+	}
+    }
+  session_redirect("/bulletins/index", NULL);
+}
+
+static void controller_bulletins_action_delete(void)
+{
+  int id = get_bulletin_id_from_query_string();
+  if (id > 0)
+    {
+      struct Model_bulletins *bulletin = select_bulletin_by_id(id);
+      if (bulletin)
+	{
+	  model_bulletins_set_delete(bulletin);
+	  model_bulletins_update(bulletin);
+	  free(bulletin);
+	}
+    }
+  session_redirect("/bulletins/index", NULL);
+}
+
 void controller_bulletins_action(const char *request_uri)
 {
   if(session_get_curr_user_id() == 0)
@@ -115,6 +147,10 @@ void controller_bulletins_action(const char *request_uri)
     controller_bulletins_action_addbulletin();
   else if (strstr(request_uri, "/bulletins/public?id=") == request_uri)
     controller_bulletins_action_public();
+  else if (strstr(request_uri, "/bulletins/wait?id=") == request_uri)
+    controller_bulletins_action_wait();
+  else if (strstr(request_uri, "/bulletins/delete?id=") == request_uri)
+    controller_bulletins_action_delete();
   else
     session_redirect("/bulletins/index", NULL);
 }

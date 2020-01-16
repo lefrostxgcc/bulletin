@@ -153,6 +153,16 @@ void model_bulletins_set_public(struct Model_bulletins *bulletin)
   strcpy(bulletin->status, "public");
 }
 
+void model_bulletins_set_wait(struct Model_bulletins *bulletin)
+{
+  strcpy(bulletin->status, "wait");
+}
+
+void model_bulletins_set_delete(struct Model_bulletins *bulletin)
+{
+  strcpy(bulletin->status, "delete");
+}
+
 struct Model_bulletins *select_bulletins_by_status(const char *status)
 {
   if (status == NULL)
