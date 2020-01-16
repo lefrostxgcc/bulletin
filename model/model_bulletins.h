@@ -28,6 +28,8 @@ int model_bulletins_update(const struct Model_bulletins *bulletin);
 struct Model_bulletins *
 select_bulletins_by_userid_and_status(int user_id, const char *status);
 
+struct Model_bulletins *select_bulletins_by_status(const char *status);
+
 struct Model_bulletins *select_bulletin_by_id(int id);
 void model_bulletins_set_public(struct Model_bulletins *bulletin);
 

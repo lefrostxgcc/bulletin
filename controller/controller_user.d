@@ -4,4 +4,7 @@ controller/controller_user.o controller/controller_user.d : controller/controlle
  controller/../view/user/view_user.h \
  controller/../view/user/../../model/model_user.h \
  controller/../view/user/../../model/model_userinfo.h \
- controller/../view/site/view_site.h controller/../model/model_userform.h
+ controller/../view/site/view_site.h \
+ controller/../view/site/../../model/model_bulletins.h \
+ controller/../view/site/../../model/model_bulletinsform.h \
+ controller/../model/model_userform.h

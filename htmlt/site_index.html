@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/styles.css">
   </head>
   <body>
@@ -19,6 +20,14 @@
 	</ul>
       </nav>
     </header>
-    {CONTENT}
+    <main>
+      <div class="jumbotron">
+	<h1>Объявления</h1>
+	<p>Здесь размещены самые новые объявления</p>
+      </div>
+      <div class="row">
+	{BULLETINS_PUBLIC_EMBED}
+      </div>
+    </main>
   </body>
 </html>

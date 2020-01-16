@@ -5,6 +5,7 @@
 #include "session.h"
 #include "controller_site.h"
 #include "../model/model_user.h"
+#include "../model/model_bulletins.h"
 #include "../view/site/view_site.h"
 
 #define MAX_USERNAME_LEN 15
@@ -73,10 +74,13 @@ static void controller_site_action_index(void)
 {
   const int user_id = session_get_curr_user_id();
   struct Model_user *user = model_user_select_by_id(user_id);
+  struct Model_bulletins *bulletins =
+    select_bulletins_by_status("public");
   if (user)
-    render_site_index(user->username);
+    render_site_index(user->username, bulletins);
   else
-    render_site_index_guest();
+    render_site_index_guest(bulletins);
+  free(bulletins);
   model_user_free(user);
 }
 
