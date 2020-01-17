@@ -34,5 +34,6 @@ struct Model_bulletins *select_bulletin_by_id(int id);
 void model_bulletins_set_public(struct Model_bulletins *bulletin);
 void model_bulletins_set_wait(struct Model_bulletins *bulletin);
 void model_bulletins_set_delete(struct Model_bulletins *bulletin);
+void model_bulletins_free(struct Model_bulletins *bulletin);
 
 #endif

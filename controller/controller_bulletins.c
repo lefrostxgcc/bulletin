@@ -83,7 +83,7 @@ static int get_bulletin_id_from_query_string(void)
   return id;
 }
 
-static void controller_bulletins_action_public(void)
+static void set_status(const char *status)
 {
   int id = get_bulletin_id_from_query_string();
   if (id > 0)
@@ -91,44 +91,32 @@ static void controller_bulletins_action_public(void)
       struct Model_bulletins *bulletin = select_bulletin_by_id(id);
       if (bulletin)
 	{
-	  model_bulletins_set_public(bulletin);
+	  if (strcmp(status, "public") == 0)
+	    model_bulletins_set_public(bulletin);
+	  else if (strcmp(status, "delete") == 0)
+	    model_bulletins_set_delete(bulletin);
+	  else if (strcmp(status, "wait") == 0)
+	    model_bulletins_set_wait(bulletin);
 	  model_bulletins_update(bulletin);
-	  free(bulletin);
 	}
+      model_bulletins_free(bulletin);
     }
   session_redirect("/bulletins/index", NULL);
 }
 
-static void controller_bulletins_action_wait(void)
+static void controller_bulletins_action_public(void)
 {
-  int id = get_bulletin_id_from_query_string();
-  if (id > 0)
-    {
-      struct Model_bulletins *bulletin = select_bulletin_by_id(id);
-      if (bulletin)
-	{
-	  model_bulletins_set_wait(bulletin);
-	  model_bulletins_update(bulletin);
-	  free(bulletin);
-	}
-    }
-  session_redirect("/bulletins/index", NULL);
+  set_status("public");
 }
 
 static void controller_bulletins_action_delete(void)
 {
-  int id = get_bulletin_id_from_query_string();
-  if (id > 0)
-    {
-      struct Model_bulletins *bulletin = select_bulletin_by_id(id);
-      if (bulletin)
-	{
-	  model_bulletins_set_delete(bulletin);
-	  model_bulletins_update(bulletin);
-	  free(bulletin);
-	}
-    }
-  session_redirect("/bulletins/index", NULL);
+  set_status("delete");
+}
+
+static void controller_bulletins_action_wait(void)
+{
+  set_status("wait");
 }
 
 void controller_bulletins_action(const char *request_uri)

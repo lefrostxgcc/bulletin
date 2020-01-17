@@ -22,6 +22,11 @@ void model_bulletins_set_new(
   strcpy(bulletin->status, "wait");
 }
 
+void model_bulletins_free(struct Model_bulletins *bulletin)
+{
+  free(bulletin);
+}
+
 int model_bulletins_insert(const struct Model_bulletins *bulletin)
 {
   if (!bulletin)
