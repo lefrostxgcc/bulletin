@@ -2,7 +2,10 @@
   <td>{BULLETINS_PUBLIC_ID}</td>
   <td>{BULLETINS_PUBLIC_TITLE}</td>
   <td>
-    <a class="btn btn-warning" href="#">Редактировать</a>
+    <a class="btn btn-warning"
+       href="/bulletins/addbulletin?id={BULLETINS_PUBLIC_ID}">
+      Редактировать
+    </a>
     <a class="btn btn-danger"
        href="/bulletins/delete?id={BULLETINS_PUBLIC_ID}">
       Удалить
