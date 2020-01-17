@@ -70,6 +70,29 @@ int model_bulletins_update(const struct Model_bulletins *bulletin)
   return 1;
 }
 
+int model_bulletins_edit(const struct Model_bulletins *bulletin)
+{
+  if (!bulletin)
+    return 0;
+  char query[4096] = {'\0'};
+  MYSQL *conn = mysql_init(NULL);
+  mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
+  mysql_query(conn, "set names utf8");
+  snprintf(query, sizeof query / sizeof query[0],
+	   "UPDATE `bulletins`"
+	   "SET title='%s', "
+	   "info='%s', contacts='%s', city='%s', "
+	   "price=%f, status='%s' "
+	   "WHERE `id`=%d;",
+	   bulletin->title,
+	   bulletin->info, bulletin->contacts, bulletin->city,
+	   bulletin->price, bulletin->status, bulletin->id
+	   );
+  mysql_query(conn, query);
+  mysql_close(conn);
+  return 1;
+}
+
 struct Model_bulletins *
 select_bulletins_by_userid_and_status(int user_id, const char *status)
 {

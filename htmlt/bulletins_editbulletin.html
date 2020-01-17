@@ -21,7 +21,7 @@
       </nav>
     </header>
     <main>
-      <form action="/bulletins/addbulletin" method="post">
+      <form action="/bulletins/editbulletin?id={BULLETINS_ID}" method="post">
 	<div class="row">
 	  <div class="column-left">
 	    <div class="form-bulletin">
@@ -30,11 +30,12 @@
 	      </header>
 	      <main>
 		<label for="ftitle"> {BULLETINSFORM_TITLE_LABEL} </label>
-		<input type="text" id="ftitle" name="title" required />
+		<input type="text" id="ftitle" name="title" required
+		       value="{BULLETINSFORM_TITLE}" />
 		<label for="finfo"> {BULLETINSFORM_INFO_LABEL} </label>
-		<textarea id="finfo" name="info" required></textarea>
+		<textarea id="finfo" name="info" required>{BULLETINSFORM_INFO}</textarea>
 		<label for="fcontacts"> {BULLETINSFORM_CONTACTS_LABEL} </label>
-		<textarea id="fcontacts" name="contacts" required></textarea>
+		<textarea id="fcontacts" name="contacts" required>{BULLETINSFORM_CONTACTS}</textarea>
 	      </main>
 	    </div>
 	  </div>
@@ -43,9 +44,12 @@
 	      <header>Добавить атрибуты</header>
 	      <main>
 		<label for="fcity"> {BULLETINSFORM_CITY_LABEL} </label>
-		<input type="text" id="fcity" name="city" required />
+		<input type="text" id="fcity" name="city" required
+		       value="{BULLETINSFORM_CITY}"
+		       />
 		<label for="fprice"> {BULLETINSFORM_PRICE_LABEL} </label>
-		<input type="text" id="fprice" name="price" required />
+		<input type="text" id="fprice" name="price" required
+		       value="{BULLETINSFORM_PRICE}" />
 		<input class="btn btn-primary" type="submit"
 		       value="Сохранить" />
 	      </main>

@@ -56,3 +56,14 @@ model_bulletinsform_load_by_post_request(struct Model_bulletinsform *form)
   return 1;
 }
 
+void
+model_bulletinsform_init_from_bulletin(struct Model_bulletinsform *form,
+				       const struct Model_bulletins *bulletin)
+{
+  memset(form, '\0', sizeof(struct Model_bulletinsform));
+  strcpy(form->title, bulletin->title);
+  strcpy(form->info, bulletin->info);
+  strcpy(form->contacts, bulletin->contacts);
+  strcpy(form->city, bulletin->city);
+  form->price = bulletin->price;
+}

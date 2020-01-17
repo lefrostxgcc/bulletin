@@ -1,20 +1,7 @@
 #ifndef MODEL_BULLETINS_H
 #define MODEL_BULLETINS_H
 
-#include "model_bulletinsform.h"
-
-struct Model_bulletins
-{
-  int id;
-  int user_id;
-  char date_pub[256];
-  char title[256];
-  char info[256];
-  char contacts[256];
-  char city[256];
-  double price;
-  char status[256];
-};
+#include "model_bulletins_common.h"
 
 void model_bulletins_set_new(
 			    struct Model_bulletins *bulletin,
@@ -35,5 +22,6 @@ void model_bulletins_set_public(struct Model_bulletins *bulletin);
 void model_bulletins_set_wait(struct Model_bulletins *bulletin);
 void model_bulletins_set_delete(struct Model_bulletins *bulletin);
 void model_bulletins_free(struct Model_bulletins *bulletin);
+int model_bulletins_edit(const struct Model_bulletins *bulletin);
 
 #endif

@@ -8,6 +8,17 @@
 #include "../model/model_bulletinsform.h"
 #include "../view/bulletins/view_bulletins.h"
 
+static int get_bulletin_id_from_query_string(void)
+{
+  const char *query_string = getenv("QUERY_STRING");
+  int id = 0;
+  if (!query_string)
+    return 0;
+  if (sscanf(query_string, "id=%d", &id) != 1)
+    return 0;
+  return id;
+}
+
 static void controller_bulletins_action_index(void)
 {
   const int user_id = session_get_curr_user_id();
@@ -72,15 +83,39 @@ static void controller_bulletins_action_addbulletin(void)
   model_user_free(user);
 }
 
-static int get_bulletin_id_from_query_string(void)
+static void controller_bulletins_action_editbulletin(void)
 {
-  const char *query_string = getenv("QUERY_STRING");
-  int id = 0;
-  if (!query_string)
-    return 0;
-  if (sscanf(query_string, "id=%d", &id) != 1)
-    return 0;
-  return id;
+  const int bulletin_id = get_bulletin_id_from_query_string();
+  if (bulletin_id < 0)
+    {
+      session_redirect("/bulletins/index", NULL);
+      return;
+    }
+  const int session_user_id = session_get_curr_user_id();
+  struct Model_bulletinsform form;
+  if (model_bulletinsform_load_by_post_request(&form))
+    {
+      if (model_bulletinsform_validate(&form) == BULLETINSFORM_VALID)
+	{
+	  struct Model_bulletins bulletin;
+	  model_bulletins_set_new(&bulletin, &form, session_user_id);
+	  bulletin.id = bulletin_id;
+	  model_bulletins_edit(&bulletin);
+	  session_redirect("/bulletins/index", NULL);
+	  return;
+	}
+    }
+  struct Model_bulletins *bulletin = select_bulletin_by_id(bulletin_id);
+  if (!bulletin)
+    {
+      session_redirect("/bulletins/index", NULL);
+      return;
+    }
+  model_bulletinsform_init_from_bulletin(&form, bulletin);
+  struct Model_user *user = model_user_select_by_id(session_user_id);
+  render_bulletins_editbulletin(user->username, &form, bulletin_id);
+  model_user_free(user);
+  model_bulletins_free(bulletin);
 }
 
 static void set_status(const char *status)
@@ -133,6 +168,8 @@ void controller_bulletins_action(const char *request_uri)
     controller_bulletins_action_index_deleted();
   else if (strcmp(request_uri, "/bulletins/addbulletin") == 0)
     controller_bulletins_action_addbulletin();
+  else if (strstr(request_uri, "/bulletins/editbulletin") == request_uri)
+    controller_bulletins_action_editbulletin();
   else if (strstr(request_uri, "/bulletins/public?id=") == request_uri)
     controller_bulletins_action_public();
   else if (strstr(request_uri, "/bulletins/wait?id=") == request_uri)

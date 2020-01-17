@@ -1,4 +1,5 @@
-view/bulletins/view_bulletins_addbulletin.o view/bulletins/view_bulletins_addbulletin.d : view/bulletins/view_bulletins_addbulletin.c \
+view/bulletins/view_bulletins_editbulletin.o view/bulletins/view_bulletins_editbulletin.d : \
+ view/bulletins/view_bulletins_editbulletin.c \
  view/bulletins/view_bulletins.h \
  view/bulletins/../../model/model_bulletins.h \
  view/bulletins/../../model/model_bulletins_common.h \

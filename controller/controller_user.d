@@ -6,5 +6,5 @@ controller/controller_user.o controller/controller_user.d : controller/controlle
  controller/../view/user/../../model/model_userinfo.h \
  controller/../view/site/view_site.h \
  controller/../view/site/../../model/model_bulletins.h \
- controller/../view/site/../../model/model_bulletinsform.h \
+ controller/../view/site/../../model/model_bulletins_common.h \
  controller/../model/model_userform.h

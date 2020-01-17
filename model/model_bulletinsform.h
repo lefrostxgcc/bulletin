@@ -1,6 +1,8 @@
 #ifndef MODEL_BULLETINSFORM_H
 #define MODEL_BULLETINSFORM_H
 
+#include "model_bulletins_common.h"
+
 enum Bulletinsform_status
   {
    BULLETINSFORM_VALID,
@@ -21,15 +23,6 @@ enum Bulletinsform_element_index
    BULLETINSFORM_ELEMENT_COUNT
   };
 
-struct Model_bulletinsform
-{
-  char title[256];
-  char info[256];
-  char contacts[256];
-  char city[256];
-  double price;
-};
-
 int
 model_bulletinsform_validate(const struct Model_bulletinsform *bulletinsform);
 
@@ -37,5 +30,9 @@ const char **model_bulletinsform_attribute_labels(void);
 
 int
 model_bulletinsform_load_by_post_request(struct Model_bulletinsform *form);
+
+void
+model_bulletinsform_init_from_bulletin(struct Model_bulletinsform *form,
+				       const struct Model_bulletins *bulletin);
 
 #endif
