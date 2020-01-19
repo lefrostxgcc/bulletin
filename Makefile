@@ -6,7 +6,8 @@ LDLIBS=`pkg-config --libs mariadb` -lcrypto
 project:=bulletin
 name:= index.cgi
 sources:= $(wildcard *.c controller/*.c model/*.c view/*.c \
-	view/site/*.c view/user/*.c view/bulletins/*.c)
+	view/site/*.c view/user/*.c view/bulletins/*.c \
+	view/photo/*.c)
 htmlt_files:= $(wildcard htmlt/*.html)
 css_files:= $(wildcard css/*.css)
 data_files:= $(htmlt_files) $(css_files)

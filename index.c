@@ -4,6 +4,7 @@
 #include "controller/controller_user.h"
 #include "controller/controller_site.h"
 #include "controller/controller_bulletins.h"
+#include "controller/controller_photo.h"
 
 int main(void)
 {
@@ -18,6 +19,8 @@ int main(void)
     controller_user_action(request_uri);
   else if (strstr(request_uri, "/bulletins/") == request_uri)
     controller_bulletins_action(request_uri);
+  else if (strstr(request_uri, "/photo/") == request_uri)
+    controller_photo_action(request_uri);
   else
     controller_site_action(request_uri);
 }
