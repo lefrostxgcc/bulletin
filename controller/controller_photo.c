@@ -1,8 +1,22 @@
+#include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "controller_photo.h"
 #include "session.h"
 #include "../model/model_user.h"
+#include "../model/model_photo.h"
 #include "../view/photo/view_photo.h"
+
+static int get_photo_id_from_query_string(void)
+{
+  const char *query_string = getenv("QUERY_STRING");
+  int id = 0;
+  if (!query_string)
+    return 0;
+  if (sscanf(query_string, "id=%d", &id) != 1)
+    return 0;
+  return id;
+}
 
 static void controller_photo_action_index(void)
 {
@@ -11,7 +25,12 @@ static void controller_photo_action_index(void)
     {
       struct Model_user *user = model_user_select_by_id(user_id);
       if (user)
-	render_photo_index(user->username);
+	{
+	  const int bull_id = get_photo_id_from_query_string();
+	  struct Model_photo *photos = select_photos_by_bull_id(bull_id);
+	  render_photo_index(user->username, photos);
+	  free(photos);
+	}
       else
 	session_redirect("/", NULL);
       model_user_free(user);
