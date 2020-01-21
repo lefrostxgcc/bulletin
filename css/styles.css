@@ -218,6 +218,11 @@ td {
     padding: 10px;
     margin: auto;
     overflow: auto;
+    transition: border 0.2s ease-in-out;
+}
+
+.thumbnail:hover {
+    border-color: #337ab7;
 }
 
 .jumbotron {
