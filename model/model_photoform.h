@@ -1,6 +1,8 @@
 #ifndef MODEL_PHOTOFORM_H
 #define MODEL_PHOTOFORM_H
 
+#include <stddef.h>
+
 struct Model_photoform
 {
   void *file;
