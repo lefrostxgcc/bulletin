@@ -4,6 +4,7 @@
 #include "view_site.h"
 #include "../../model/model_bulletins.h"
 #include "../read_replace_write.h"
+#include "../../config/params.h"
 
 struct Bulletins_info
 {
@@ -49,6 +50,8 @@ void print_info_rows(const char *filename, void *embed)
     {
       const struct Key_value map[] =
 	{
+	 {.key = "IMAGE_PATH", .value = IMAGE_PATH},
+	 {.key = "DEFAULT_IMAGE", .value = DEFAULT_IMAGE},
 	 {.key = "BULLETIN_TITLE", .value = rows->title},
 	 {.key = "BULLETIN_PRICE", .value = rows->price},
 	 {.key = "BULLETIN_CITY", .value = rows->city},
