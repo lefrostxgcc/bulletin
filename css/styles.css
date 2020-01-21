@@ -239,6 +239,11 @@ td {
     .col-s-12 {width: 100%;}
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 @media screen and (min-width: 992px) {
     main {
 	padding-left: 50px;
