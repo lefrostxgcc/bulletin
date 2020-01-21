@@ -42,10 +42,12 @@ void free_info_rows(struct Bulletins_info *rows)
 
 void print_info_rows(const char *filename, void *embed)
 {
-  struct Bulletins_info *rows = (struct Bulletins_info *) embed;
+  if (!filename || !embed)
+    return;
   FILE *f = fopen(filename, "r");
   if (!f)
     return;
+  struct Bulletins_info *rows = (struct Bulletins_info *) embed;
   while (strlen(rows->title) > 0)
     {
       const struct Key_value map[] =
