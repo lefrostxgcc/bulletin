@@ -8,6 +8,7 @@ name:= index.cgi
 sources:= $(wildcard *.c controller/*.c model/*.c view/*.c \
 	view/site/*.c view/user/*.c view/bulletins/*.c \
 	view/photo/*.c)
+image_files:= $(wildcard images/*.png)
 htmlt_files:= $(wildcard htmlt/*.html)
 css_files:= $(wildcard css/*.css)
 data_files:= $(htmlt_files) $(css_files)
@@ -16,6 +17,7 @@ deps:= $(sources:.c=.d)
 prefix:=/var/www/$(project)
 bindir:=$(prefix)
 htmltdir:=$(prefix)/htmlt
+imagedir:=$(prefix)/images
 cssdir:=$(prefix)/css
 htaccess:= .htaccess
 install_bin:= install
@@ -46,6 +48,8 @@ install_data: $(data_files)
 	$(install_data) $(htmlt_files) $(htmltdir)
 	-mkdir $(cssdir)
 	$(install_data) $(css_files) $(cssdir)
+	-mkdir $(imagedir)
+	$(install_data) $(image_files) $(imagedir)
 
 clean:
 	rm -f $(name) $(objects)
