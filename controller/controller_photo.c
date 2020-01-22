@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -5,6 +6,7 @@
 #include "session.h"
 #include "../model/model_user.h"
 #include "../model/model_photo.h"
+#include "../model/model_photoform.h"
 #include "../view/photo/view_photo.h"
 
 static int get_photo_id_from_query_string(void)
@@ -43,14 +45,13 @@ static void controller_photo_action_index(void)
 
 static void controller_photo_action_add(void)
 {
+  struct Model_photoform *form = model_photoform_load_by_post_request();
   const int user_id = session_get_curr_user_id();
   if (user_id > 0)
     {
       struct Model_user *user = model_user_select_by_id(user_id);
       if (user)
 	{
-	  const int bull_id = get_photo_id_from_query_string();
-	  (void) bull_id;
 	  render_photo_add(user->username);
 	}
       else
@@ -61,6 +62,7 @@ static void controller_photo_action_add(void)
     {
       session_redirect("/site/login", NULL);
     }
+  model_photoform_free(form);
 }
 
 void controller_photo_action(const char *request_uri)

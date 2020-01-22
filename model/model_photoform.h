@@ -30,5 +30,7 @@ enum Photoform_element_index
 int model_photoform_validate(const struct Model_photoform *photoform);
 
 const char **model_photoform_attribute_labels(void);
+struct Model_photoform *model_photoform_load_by_post_request(void);
+void model_photoform_free(struct Model_photoform *photoform);
 
 #endif
