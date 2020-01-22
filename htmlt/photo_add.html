@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/styles.css">
+  </head>
+  <body>
+    <header>
+      <nav class="top-menu">
+	<ul class="menu-main">
+	  <li class="left-item">
+	    <a href="/">Доска объявлений</a>
+	  </li>
+	  <li class="right-item">
+	    <a href="/site/logout">Выход ({LOGIN})</a>
+	  </li>
+	  <li class="right-item">
+	    <a href="/bulletins/index">Мои объявления</a>
+	  </li>
+	</ul>
+      </nav>
+    </header>
+    <main>
+      <form action="/photo/add"
+	    method="post"
+	    enctype="multipart/form-data">
+	<div class="row">
+	  <div class="form-add-photo">
+	    <main>
+	      <label for="ffile"><b>{PHOTOFORM_FILE_LABEL}</b></label>
+	      <input type="file" id="ffile" name="file" />
+	      <label for="finfo"><b>{PHOTOFORM_INFO_LABEL}</b></label>
+	      <textarea name="info" id="finfo" name="info"></textarea>
+	      <input type="submit" class="btn btn-primary" value="Сохранить"/>
+	    </main>
+	  </div>
+	</div>
+      </form>
+    </main>
+  </body>
+</html>

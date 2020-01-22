@@ -6,4 +6,6 @@
 void render_photo_index(const char *username,
 			const struct Model_photo photos[]);
 
+void render_photo_add(const char *username);
+
 #endif

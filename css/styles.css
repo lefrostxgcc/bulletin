@@ -63,7 +63,8 @@
 
 .btn-primary {
     color: white;
-    background-color: blue;
+    background-color: #337ab7;
+    border-color: #2e6da4;
 }
 
 .btn-info {
@@ -208,6 +209,29 @@ td {
 }
 
 .form-bulletin main {
+    padding: 10px;
+}
+
+.form-add-photo {
+}
+
+.form-add-photo input[type="text"], .form-add-photo textarea {
+    width: 100%;
+    margin-top: 3px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.form-add-photo input[type="file"] {
+    width: 100%;
+    margin-top: 3px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.form-add-photo main {
     padding: 10px;
 }
 

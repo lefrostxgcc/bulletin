@@ -2,6 +2,7 @@
 #include <string.h>
 #include "view_photo.h"
 #include "../../model/model_photo.h"
+#include "../../model/model_photoform.h"
 #include "../read_replace_write.h"
 
 struct Photo_front
@@ -76,4 +77,23 @@ void render_photo_index(const char *username,
     };
   read_replace_write("htmlt/photo_index.html", map, NULL);
   free_photo_row(embed);
+}
+
+void render_photo_add(const char *username)
+{
+  const char **labels = model_photoform_attribute_labels();
+  const struct Key_value map[] =
+    {
+     {.key = "LOGIN", .value = username},
+     {
+      .key = "PHOTOFORM_FILE_LABEL",
+      .value = labels[PHOTOFORM_FILE_INDEX]
+     },
+     {
+      .key = "PHOTOFORM_INFO_LABEL",
+      .value = labels[PHOTOFORM_INFO_INDEX]
+     },
+     {.key = NULL, .value = NULL}
+    };
+  read_replace_write("htmlt/photo_add.html", map, NULL);
 }

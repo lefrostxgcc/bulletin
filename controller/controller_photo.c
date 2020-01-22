@@ -41,10 +41,34 @@ static void controller_photo_action_index(void)
     }
 }
 
+static void controller_photo_action_add(void)
+{
+  const int user_id = session_get_curr_user_id();
+  if (user_id > 0)
+    {
+      struct Model_user *user = model_user_select_by_id(user_id);
+      if (user)
+	{
+	  const int bull_id = get_photo_id_from_query_string();
+	  (void) bull_id;
+	  render_photo_add(user->username);
+	}
+      else
+	session_redirect("/", NULL);
+      model_user_free(user);
+    }
+  else
+    {
+      session_redirect("/site/login", NULL);
+    }
+}
+
 void controller_photo_action(const char *request_uri)
 {
   if (strstr(request_uri, "/photo/index") == request_uri)
     controller_photo_action_index();
+  else if (strstr(request_uri, "/photo/add") == request_uri)
+    controller_photo_action_add();
   else
     session_redirect("/", NULL);
 }
