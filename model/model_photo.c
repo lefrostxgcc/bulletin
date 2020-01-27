@@ -43,3 +43,35 @@ struct Model_photo *select_photos_by_bull_id(int bull_id)
   mysql_close(conn);
   return photos;
 }
+
+void model_photo_set_new(
+			 struct Model_photo *photo,
+			 const struct Model_photoform *form,
+			 int bull_id
+			 )
+{
+  memset(photo, '\0', sizeof(struct Model_photo));
+  photo->bull_id = bull_id;
+  if (form->link)
+    strcpy(photo->link, form->link);
+  if (form->info)
+    strcpy(photo->info, form->info); 
+}
+
+int model_photo_insert(const struct Model_photo *photo)
+{
+  if (!photo)
+    return 0;
+  char query[2048];
+  MYSQL *conn = mysql_init(NULL);
+  mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
+  mysql_query(conn, "set names utf8");
+  snprintf(query, sizeof query / sizeof query[0],
+	   "INSERT INTO `photo`"
+	   "(`bull_id`,`link`,`info`)"
+	   " VALUES ('%d', '%s', '%s');",
+	   photo->bull_id, photo->link, photo->info);
+  mysql_query(conn, query);
+  mysql_close(conn);
+  return 1;
+}

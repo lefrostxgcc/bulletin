@@ -113,8 +113,7 @@ model_photoform_new_from_content(void *img_start, size_t img_size,
   memcpy(photoform->file, img_start, img_size);
   photoform->file_size = img_size;
   strcpy(photoform->filename, filename);
-  strcpy(photoform->link, "link");
-  strcpy(photoform->info, "info");
+  strcpy(photoform->link, filename);
   return photoform;
 }
 

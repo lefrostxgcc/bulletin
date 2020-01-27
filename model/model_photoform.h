@@ -2,15 +2,7 @@
 #define MODEL_PHOTOFORM_H
 
 #include <stddef.h>
-
-struct Model_photoform
-{
-  void *file;
-  size_t file_size;
-  char filename[256];
-  char link[256];
-  char info[256];
-};
+#include "model_photo_common.h"
 
 enum Photoform_status
   {

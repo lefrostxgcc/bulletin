@@ -52,7 +52,22 @@ static void controller_photo_action_add(void)
       if (user)
 	{
 	  const int bull_id = get_photo_id_from_query_string();
-	  render_photo_add(user->username, bull_id);
+	  if (form)
+	    {
+	      struct Model_photo photo;
+	      model_photo_set_new(&photo, form, bull_id);
+	      model_photo_insert(&photo);
+	      char redirect_href[64] = {'\0'};
+	      snprintf(redirect_href,
+		       sizeof redirect_href / sizeof redirect_href[0],
+		       "/photo/index?id=%d",
+		       bull_id);
+	      session_redirect(redirect_href, NULL);
+	    }
+	  else
+	    {
+	      render_photo_add(user->username, bull_id);
+	    }
 	}
       else
 	session_redirect("/", NULL);
