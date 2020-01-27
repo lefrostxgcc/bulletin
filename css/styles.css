@@ -48,7 +48,6 @@
     display: -webkit-flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: center;
 }
 
 .btn {

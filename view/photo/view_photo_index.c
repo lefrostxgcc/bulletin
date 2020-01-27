@@ -61,12 +61,22 @@ static void print_photo_row(const char *filename, void *embed)
 }
 
 void render_photo_index(const char *username,
-			const struct Model_photo photos[])
+			const struct Model_photo photos[],
+			int bull_id)
 {
+  char bull_id_buf[32] = {'\0'};
+  snprintf(bull_id_buf,
+	   sizeof bull_id_buf / sizeof bull_id_buf[0],
+	   "%d",
+	   bull_id);
   struct Photo_front *embed = alloc_photo_row(photos);
   const struct Key_value map[] =
     {
      {.key = "LOGIN", .value = username},
+     {
+      .key = "BULLETIN_ID",
+      .value = bull_id_buf
+     },
      {
       .key = "PHOTO_EMBED",
       .value = "htmlt/photo_index_embed.html",
@@ -79,19 +89,24 @@ void render_photo_index(const char *username,
   free_photo_row(embed);
 }
 
-void render_photo_add(const char *username)
+void render_photo_add(const char *username, int bull_id)
 {
+  char bull_id_buf[32] = {'\0'};
+  snprintf(bull_id_buf,
+	   sizeof bull_id_buf / sizeof bull_id_buf[0],
+	   "%d",
+	   bull_id);
   const char **labels = model_photoform_attribute_labels();
   const struct Key_value map[] =
     {
      {.key = "LOGIN", .value = username},
      {
-      .key = "PHOTOFORM_FILE_LABEL",
-      .value = labels[PHOTOFORM_FILE_INDEX]
+      .key = "BULLETIN_ID",
+      .value = bull_id_buf
      },
      {
-      .key = "PHOTOFORM_INFO_LABEL",
-      .value = labels[PHOTOFORM_INFO_INDEX]
+      .key = "PHOTOFORM_FILE_LABEL",
+      .value = labels[PHOTOFORM_FILE_INDEX]
      },
      {.key = NULL, .value = NULL}
     };

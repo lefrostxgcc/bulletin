@@ -1,4 +1,3 @@
-#define _GNU_SOURCE
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -30,7 +29,7 @@ static void controller_photo_action_index(void)
 	{
 	  const int bull_id = get_photo_id_from_query_string();
 	  struct Model_photo *photos = select_photos_by_bull_id(bull_id);
-	  render_photo_index(user->username, photos);
+	  render_photo_index(user->username, photos, bull_id);
 	  free(photos);
 	}
       else
@@ -52,7 +51,8 @@ static void controller_photo_action_add(void)
       struct Model_user *user = model_user_select_by_id(user_id);
       if (user)
 	{
-	  render_photo_add(user->username);
+	  const int bull_id = get_photo_id_from_query_string();
+	  render_photo_add(user->username, bull_id);
 	}
       else
 	session_redirect("/", NULL);

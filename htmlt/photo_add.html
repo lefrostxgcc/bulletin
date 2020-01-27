@@ -21,7 +21,7 @@
       </nav>
     </header>
     <main>
-      <form action="/photo/add"
+      <form action="/photo/add?id={BULLETIN_ID}"
 	    method="post"
 	    enctype="multipart/form-data"
 	    accept-charset="UTF-8">
@@ -30,8 +30,6 @@
 	    <main>
 	      <label for="ffile"><b>{PHOTOFORM_FILE_LABEL}</b></label>
 	      <input type="file" id="ffile" name="file" />
-	      <label for="finfo"><b>{PHOTOFORM_INFO_LABEL}</b></label>
-	      <textarea name="info" id="finfo" name="info"></textarea>
 	      <input type="submit" class="btn btn-primary" value="Сохранить"/>
 	    </main>
 	  </div>
