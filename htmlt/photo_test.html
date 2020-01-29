@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+  </head>
+  <body>
+    <header>
+      <nav class="top-menu">
+	<ul class="menu-main">
+	  <li class="left-item">
+	    <a href="/">Доска объявлений</a>
+	  </li>
+	  <li class="right-item">
+	    <a href="/site/logout">Выход ({{LOGIN}})</a>
+	  </li>
+	  <li class="right-item">
+	    <a href="/bulletins/index">Мои объявления</a>
+	  </li>
+	</ul>
+      </nav>
+    </header>
+    <main>
+      <h2>ТЕСТ</h2>
+      <div>
+	<input type="text" style="display:none;"
+	       name="testfield" id="testfield" />
+      </div>
+      <button type="button" id="tb" class="btn btn-primary">
+	Показать
+      </button>
+    </main>
+    <script>
+      $("#tb").on("click", function()
+		  {
+		      if ($("#testfield").is(":hidden"))
+		      {
+			  $("#testfield").show();
+			  $("#tb").html("Скрыть");
+		      }
+		      else
+		      {
+			  $("#testfield").hide();
+			  $("#tb").html("Показать");
+		      }
+		  });
+    </script>
+  </body>
+</html>

@@ -12,7 +12,7 @@
 	    <a href="/">Доска объявлений</a>
 	  </li>
 	  <li class="right-item">
-	    <a href="/site/logout">Выход ({LOGIN})</a>
+	    <a href="/site/logout">Выход ({{LOGIN}})</a>
 	  </li>
 	  <li class="right-item">
 	    <a href="/bulletins/index">Мои объявления</a>
@@ -21,14 +21,14 @@
       </nav>
     </header>
     <main>
-      <form action="/photo/add?id={BULLETIN_ID}"
+      <form action="/photo/add?id={{BULLETIN_ID}}"
 	    method="post"
 	    enctype="multipart/form-data"
 	    accept-charset="UTF-8">
 	<div class="row">
 	  <div class="form-add-photo">
 	    <main>
-	      <label for="ffile"><b>{PHOTOFORM_FILE_LABEL}</b></label>
+	      <label for="ffile"><b>{{PHOTOFORM_FILE_LABEL}}</b></label>
 	      <input type="file" id="ffile" name="file" />
 	      <input type="submit" class="btn btn-primary" value="Сохранить"/>
 	    </main>

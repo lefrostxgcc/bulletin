@@ -8,5 +8,6 @@ void render_photo_index(const char *username,
 			int bull_id);
 
 void render_photo_add(const char *username, int bull_id);
+void render_photo_test(const char *username);
 
 #endif

@@ -3,7 +3,7 @@
 #include "read_replace_write.h"
 
 static int find_record_by_key(const char *key,
-			     const struct Key_value map[])
+			      const struct Key_value map[])
 {
   if (!key || !map)
     return -1;
@@ -44,18 +44,43 @@ void read_replace_write_embed(FILE *f, const struct Key_value map[])
   const size_t buf_size = sizeof(buf) / sizeof(buf[0]);
   size_t i = 0;
   int c = EOF;
-  enum state {OUT, IN_WORD} state = OUT;
+  enum state {OUT, IN_OPEN_BRACE, IN_WORD, IN_CLOSE_BRACE} state = OUT;
   while ((c = fgetc(f)) != EOF)
     {
       switch(state)
 	{
 	case OUT:
 	  if (c == '{')
-	    state = IN_WORD;
+	    state = IN_OPEN_BRACE;
 	  else
 	    putchar(c);
 	  break;
+	case IN_OPEN_BRACE:
+	  if (c == '{')
+	    state = IN_WORD;
+	  else
+	    {
+	      state = OUT;
+	      putchar('{');
+	      putchar(c);
+	    }
+	  break;
 	case IN_WORD:
+	  if (c == '}')
+	    state = IN_CLOSE_BRACE;
+	  else
+	    {
+	      buf[i++] = c;
+	      if (i + 1 >= buf_size)
+		{
+		  buf[i] = '\0';
+		  replace_func(buf, map, 0);
+		  i = 0;
+		  state = OUT;
+		}
+	    }
+	  break;
+	case IN_CLOSE_BRACE:
 	  if (c == '}')
 	    {
 	      buf[i] = '\0';
@@ -90,7 +115,7 @@ void read_replace_write(const char *filename,
   const size_t buf_size = sizeof(buf) / sizeof(buf[0]);
   size_t i = 0;
   int c = EOF;
-  enum state {OUT, IN_WORD} state = OUT;
+  enum state {OUT, IN_OPEN_BRACE, IN_WORD, IN_CLOSE_BRACE} state = OUT;
   if (http_headers)
     printf("%s", http_headers);
   printf("%s", "Content-Type: text/html\n\n");
@@ -100,11 +125,36 @@ void read_replace_write(const char *filename,
 	{
 	case OUT:
 	  if (c == '{')
-	    state = IN_WORD;
+	    state = IN_OPEN_BRACE;
 	  else
 	    putchar(c);
 	  break;
+	case IN_OPEN_BRACE:
+	  if (c == '{')
+	    state = IN_WORD;
+	  else
+	    {
+	      state = OUT;
+	      putchar('{');
+	      putchar(c);
+	    }
+	  break;
 	case IN_WORD:
+	  if (c == '}')
+	    state = IN_CLOSE_BRACE;
+	  else
+	    {
+	      buf[i++] = c;
+	      if (i + 1 >= buf_size)
+		{
+		  buf[i] = '\0';
+		  replace_func(buf, map, 0);
+		  i = 0;
+		  state = OUT;
+		}
+	    }
+	  break;
+	case IN_CLOSE_BRACE:
 	  if (c == '}')
 	    {
 	      buf[i] = '\0';

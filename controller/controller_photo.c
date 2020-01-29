@@ -80,12 +80,22 @@ static void controller_photo_action_add(void)
   model_photoform_free(form);
 }
 
+static void controller_photo_action_test(void)
+{
+  const int user_id = session_get_curr_user_id();
+  struct Model_user *user = model_user_select_by_id(user_id);
+  render_photo_test(user ? user->username : NULL);
+  model_user_free(user);
+}
+
 void controller_photo_action(const char *request_uri)
 {
   if (strstr(request_uri, "/photo/index") == request_uri)
     controller_photo_action_index();
   else if (strstr(request_uri, "/photo/add") == request_uri)
     controller_photo_action_add();
+  else if (strstr(request_uri, "/photo/test") == request_uri)
+    controller_photo_action_test();
   else
     session_redirect("/", NULL);
 }
