@@ -7,6 +7,7 @@
 
 struct Photo_front
 {
+  char id[256];
   char link[256];
   char info[256];
 };
@@ -26,6 +27,10 @@ alloc_photo_row(const struct Model_photo model[])
   struct Photo_front *row = calloc(count + 1, sizeof(struct Photo_front));
   for (int i = 0; i < count; i++)
     {
+      snprintf(row[i].id,
+	       sizeof row[i].id / sizeof row[i].id[0],
+	       "%d",
+	       model[i].id);
       strcpy(row[i].link, model[i].link);
       strcpy(row[i].info, model[i].info);
     }
@@ -51,6 +56,7 @@ static void print_photo_row(const char *filename, void *embed)
 	{
 	 {.key = "PHOTO_LINK", .value = row->link},
 	 {.key = "PHOTO_INFO", .value = row->info},
+	 {.key = "PHOTO_ID", .value = row->id},
 	 {.key = NULL, .value = NULL}
 	};
       read_replace_write_embed(f, map);

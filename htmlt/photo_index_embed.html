@@ -3,6 +3,21 @@
     <img src="/{{PHOTO_LINK}}" alt="no_photo" />
     <p>
       {{PHOTO_INFO}}
+      <div class="infofield" style="display:none;"
+	   data-id="{{PHOTO_ID}}">
+	<div class="infofield-input">
+	  <input type="text"/>
+	</div>
+	<div class="infofield-save">
+	  <button class="btn btn-success infosave"
+		  data-id="{{PHOTO_ID}}">
+	    <i class="material-icons"
+	       style="font-size: 125%; font-weight: bold;">
+	      check
+	    </i>
+	  </button>
+	</div>
+      </div>
     </p>
   </a>
   <div class="dropdown">
@@ -10,7 +25,11 @@
       Управление <span>&#9662;</span>
     </button>
     <ul class="dropdown-menu">
-      <li><a href="#">Информация</a></li>
+      <li>
+	<a href="#" class="infobutton" data-id="{{PHOTO_ID}}">
+	  Информация
+	</a>
+      </li>
       <li><a href="#">Сделать главной</a></li>
       <li class="divider"></li>
       <li><a href="#">Удалить фото</a></li>

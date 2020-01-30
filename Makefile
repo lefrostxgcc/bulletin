@@ -52,7 +52,8 @@ install_data: $(data_files)
 	$(install_data) $(css_files) $(cssdir)
 	-mkdir $(jsdir)
 	$(install_data) $(js_files) $(jsdir)
-	-mkdir $(imagedir)
+	-mkdir -m 777 $(imagedir)
+	chcon -t httpd_sys_rw_content_t $(imagedir)
 	$(install_data) $(image_files) $(imagedir)
 
 clean:

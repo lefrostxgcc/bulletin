@@ -11,3 +11,15 @@ $("#tb").on("click", function()
 		    $("#tb").html("Показать");
 		}
 	    });
+
+$(".infobutton").on("click", function()
+		    {
+			var r = $(this).data('id');
+			$("[data-id='" + r + "'].infofield").show();
+		    });
+
+$(".infosave").on("click", function()
+		  {
+		      var r = $(this).data('id');
+		      $("[data-id='" + r + "'].infofield").hide();
+		  });
