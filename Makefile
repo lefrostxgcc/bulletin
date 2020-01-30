@@ -11,13 +11,15 @@ sources:= $(wildcard *.c controller/*.c model/*.c view/*.c \
 image_files:= $(wildcard images/*.png)
 htmlt_files:= $(wildcard htmlt/*.html)
 css_files:= $(wildcard css/*.css)
-data_files:= $(htmlt_files) $(css_files)
+js_files:= $(wildcard js/*.js)
+data_files:= $(htmlt_files) $(css_files) $(js_files) $(image_files)
 objects:= $(sources:.c=.o)
 deps:= $(sources:.c=.d)
 prefix:=/var/www/$(project)
 bindir:=$(prefix)
 htmltdir:=$(prefix)/htmlt
 imagedir:=$(prefix)/images
+jsdir:=$(prefix)/js
 cssdir:=$(prefix)/css
 htaccess:= .htaccess
 install_bin:= install
@@ -48,6 +50,8 @@ install_data: $(data_files)
 	$(install_data) $(htmlt_files) $(htmltdir)
 	-mkdir $(cssdir)
 	$(install_data) $(css_files) $(cssdir)
+	-mkdir $(jsdir)
+	$(install_data) $(js_files) $(jsdir)
 	-mkdir $(imagedir)
 	$(install_data) $(image_files) $(imagedir)
 
