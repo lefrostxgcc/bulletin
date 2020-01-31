@@ -247,17 +247,17 @@ a i {
     width: 100%;
 }
 
-.infofield {
+.info {
     display: flex;
     align-items: stretch;
 }
 
-.infofield .infofield-input {
-    flex-grow: 64;
+.infofield {
+    width: 100%;
 }
 
-.infofield .infofield-input input{
-    width: 100%;
+.infofield .infofield-input {
+    flex-grow: 128;
 }
 
 .thumbnail .infofield-save {

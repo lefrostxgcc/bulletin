@@ -15,11 +15,11 @@ $("#tb").on("click", function()
 $(".infobutton").on("click", function()
 		    {
 			var r = $(this).data('id');
-			$("[data-id='" + r + "'].infofield").show();
+			$("[data-id='" + r + "'].info").show();
 		    });
 
 $(".infosave").on("click", function()
 		  {
 		      var r = $(this).data('id');
-		      $("[data-id='" + r + "'].infofield").hide();
+		      $("[data-id='" + r + "'].info").hide();
 		  });
