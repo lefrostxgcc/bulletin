@@ -4,6 +4,10 @@
 #include <mysql.h>
 #include "model_db.h"
 #include "model_photo.h"
+#include "../controller/session.h"
+
+#define MAX_CONTENT_LEN 3200
+#define MAX_FIELD_LEN 255
 
 void model_photo_free(struct Model_photo *photo)
 {
@@ -73,5 +77,36 @@ int model_photo_insert(const struct Model_photo *photo)
 	   photo->bull_id, photo->link, photo->info);
   mysql_query(conn, query);
   mysql_close(conn);
+  return 1;
+}
+
+int model_photo_update_info_by_id(const struct Model_photo *photo)
+{
+  if (!photo)
+    return 0;
+  char query[2048];
+  MYSQL *conn = mysql_init(NULL);
+  mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
+  mysql_query(conn, "set names utf8");
+  snprintf(query, sizeof query / sizeof query[0],
+	   "UPDATE `photo`"
+	   " SET `info`='%s'"
+	   " WHERE `id`='%d';",
+	   photo->info, photo->id);
+  mysql_query(conn, query);
+  mysql_close(conn);
+  return 1;
+}
+
+int model_photo_load_info_by_post(struct Model_photo *photo)
+{
+  const char *content_length = getenv("CONTENT_LENGTH");
+  if (content_length == NULL)
+      return 0;
+  char content[MAX_CONTENT_LEN + 1] = {'\0'};
+  int length = atoi(content_length);
+  fgets(content, length + 1, stdin);
+  unescape_url(content);
+  sscanf(content, "id=%d&info=%255[^&]", &photo->id, photo->info);
   return 1;
 }

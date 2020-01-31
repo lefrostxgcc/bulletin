@@ -88,6 +88,16 @@ static void controller_photo_action_test(void)
   model_user_free(user);
 }
 
+static void controller_photo_action_setinfo(void)
+{
+  struct Model_photo photo = {'\0'};
+  if (model_photo_load_info_by_post(&photo))
+    model_photo_update_info_by_id(&photo);
+  printf("Content-Type: text/plain\n\n");
+  printf("Запрос выполнен: id=%d info: %s\n", photo.id, photo.info);
+  printf("\n\n");
+}
+
 void controller_photo_action(const char *request_uri)
 {
   if (strstr(request_uri, "/photo/index") == request_uri)
@@ -96,6 +106,8 @@ void controller_photo_action(const char *request_uri)
     controller_photo_action_add();
   else if (strstr(request_uri, "/photo/test") == request_uri)
     controller_photo_action_test();
+  else if (strstr(request_uri, "/photo/setinfo") == request_uri)
+    controller_photo_action_setinfo();
   else
     session_redirect("/", NULL);
 }

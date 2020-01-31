@@ -12,6 +12,8 @@ void model_photo_set_new(
 			 );
 
 int model_photo_insert(const struct Model_photo *photo);
+int model_photo_update_info_by_id(const struct Model_photo *photo);
+int model_photo_load_info_by_post(struct Model_photo *photo);
 
 void model_photos_free(struct Model_photo *photos);
 
