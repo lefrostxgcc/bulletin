@@ -48,6 +48,37 @@ struct Model_photo *select_photos_by_bull_id(int bull_id)
   return photos;
 }
 
+void select_model_photo_by_id(struct Model_photo *photo, int id)
+{
+  if (!photo || id <= 0)
+    return;
+  MYSQL *conn = NULL;
+  MYSQL_RES *result = NULL;
+  MYSQL_ROW row = NULL;
+  char query[2048] = {'\0'};
+  conn = mysql_init(NULL);
+  mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
+  mysql_query(conn, "set names utf8");
+  snprintf(query, sizeof query / sizeof query[0],
+	   "SELECT `id`,`bull_id`,`link`,`info` "
+	   "FROM `photo` WHERE "
+	   "`id`=%d;",
+	   id);
+  mysql_query(conn, query);
+  result = mysql_store_result(conn);
+  memset(photo, '\0', sizeof(struct Model_photo));
+  row = mysql_fetch_row(result);
+  if (!row)
+    goto cleanup;
+  photo->id = atoi(row[0]);
+  photo->bull_id = atoi(row[1]);
+  strcpy(photo->link, row[2] ? row[2] : "");
+  strcpy(photo->info, row[3] ? row[3] : "");
+ cleanup:
+  mysql_free_result(result);
+  mysql_close(conn);
+}
+
 void model_photo_set_new(
 			 struct Model_photo *photo,
 			 const struct Model_photoform *form,
@@ -108,5 +139,18 @@ int model_photo_load_info_by_post(struct Model_photo *photo)
   fgets(content, length + 1, stdin);
   unescape_url(content);
   sscanf(content, "id=%d&info=%255[^&]", &photo->id, photo->info);
+  return 1;
+}
+
+int model_photo_load_id_by_post(struct Model_photo *photo)
+{
+  const char *content_length = getenv("CONTENT_LENGTH");
+  if (content_length == NULL)
+      return 0;
+  char content[MAX_CONTENT_LEN + 1] = {'\0'};
+  int length = atoi(content_length);
+  fgets(content, length + 1, stdin);
+  unescape_url(content);
+  sscanf(content, "id=%d", &photo->id);
   return 1;
 }

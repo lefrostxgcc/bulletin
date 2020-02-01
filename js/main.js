@@ -15,6 +15,19 @@ $("#tb").on("click", function()
 $(".infobutton").on("click", function()
 		    {
 			var r = $(this).data('id');
+			$.ajax({
+			    type: "POST",
+			    url: "/photo/getinfo",
+			    data: {id:r},
+			    success: function(res)
+			    {
+				$("[data-id='"+r+"'].infofield").val(res);
+			    },
+			    error: function()
+			    {
+				alert("error!");
+			    }
+			});
 			$("[data-id='" + r + "'].info").show();
 		    });
 
@@ -28,7 +41,6 @@ $(".infosave").on("click", function()
 			  data: {id:r, info:info_},
 			  success: function(res)
 			  {
-			      alert(res);
 			  },
 			  error: function()
 			  {
