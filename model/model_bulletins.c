@@ -203,10 +203,14 @@ struct Model_bulletins *select_bulletins_by_status(const char *status)
   mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
   mysql_query(conn, "set names utf8");
   snprintf(query, sizeof query / sizeof query[0],
-	   "SELECT `id`,`user_id`,`date_pub`,`title`,"
-	   "`info`,`contacts`,`city`,`price`,`status`"
-	   "FROM `bulletins` WHERE "
-	   "`status`='%s';", status);
+	   "SELECT `bulletins`.`id`,`user_id`,`date_pub`,`title`,"
+	   "`bulletins`.`info`,`contacts`,`city`,`price`,`status`,"
+	   "`photo`.`link`"
+	   " FROM `bulletins`"
+	   " LEFT JOIN `photo` ON `bulletins`.`avatar`=`photo`.`id` "
+	   " WHERE "
+	   "`status`='%s';",
+	   status);
   mysql_query(conn, query);
   result = mysql_store_result(conn);
   struct Model_bulletins *bulletins =
@@ -222,6 +226,7 @@ struct Model_bulletins *select_bulletins_by_status(const char *status)
       strcpy(bulletins[i].contacts, row[5] ? row[5] : "");
       strcpy(bulletins[i].city, row[6] ? row[6] : "");
       bulletins[i].price = atof(row[7]);
+      strcpy(bulletins[i].link, row[9] ? row[9] : "");
       ++i;
     }
   mysql_free_result(result);

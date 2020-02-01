@@ -11,6 +11,7 @@ struct Bulletins_info
   char title[256];
   char price[256];
   char city[256];
+  char link[256];
 };
 
 static struct Bulletins_info *
@@ -31,6 +32,17 @@ alloc_info_rows(const struct Model_bulletins model[])
       snprintf(rows[i].price, sizeof(rows[i].price)/(sizeof(rows[i].price[0])),
 	       "%.2f", model[i].price);
       strcpy(rows[i].city, model[i].city);
+      if (strlen(model[i].link) > 0)
+	{
+	  strcat(rows[i].link, "/");
+	  strcat(rows[i].link, model[i].link);
+	}
+      else
+	{
+	  snprintf(rows[i].link, sizeof(rows[i].link)/(sizeof(rows[i].link[0])),
+		   "%s%s", IMAGE_PATH, DEFAULT_IMAGE);
+	}
+
     }
   return rows;
 }
@@ -52,8 +64,7 @@ void print_info_rows(const char *filename, void *embed)
     {
       const struct Key_value map[] =
 	{
-	 {.key = "IMAGE_PATH", .value = IMAGE_PATH},
-	 {.key = "DEFAULT_IMAGE", .value = DEFAULT_IMAGE},
+	 {.key = "BULLETIN_AVATAR", .value = rows->link},
 	 {.key = "BULLETIN_TITLE", .value = rows->title},
 	 {.key = "BULLETIN_PRICE", .value = rows->price},
 	 {.key = "BULLETIN_CITY", .value = rows->city},
