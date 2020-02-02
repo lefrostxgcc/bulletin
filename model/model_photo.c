@@ -154,3 +154,16 @@ int model_photo_load_id_by_post(struct Model_photo *photo)
   sscanf(content, "id=%d", &photo->id);
   return 1;
 }
+
+int model_photo_load_bull_by_post(struct Model_photo *photo)
+{
+  const char *content_length = getenv("CONTENT_LENGTH");
+  if (content_length == NULL)
+      return 0;
+  char content[MAX_CONTENT_LEN + 1] = {'\0'};
+  int length = atoi(content_length);
+  fgets(content, length + 1, stdin);
+  unescape_url(content);
+  sscanf(content, "PhotoId=%d&BullId=%d", &photo->id, &photo->bull_id);
+  return 1;
+}

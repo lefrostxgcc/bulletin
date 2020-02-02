@@ -205,7 +205,7 @@ struct Model_bulletins *select_bulletins_by_status(const char *status)
   snprintf(query, sizeof query / sizeof query[0],
 	   "SELECT `bulletins`.`id`,`user_id`,`date_pub`,`title`,"
 	   "`bulletins`.`info`,`contacts`,`city`,`price`,`status`,"
-	   "`photo`.`link`"
+	   "`avatar`, `photo`.`link`"
 	   " FROM `bulletins`"
 	   " LEFT JOIN `photo` ON `bulletins`.`avatar`=`photo`.`id` "
 	   " WHERE "
@@ -226,10 +226,29 @@ struct Model_bulletins *select_bulletins_by_status(const char *status)
       strcpy(bulletins[i].contacts, row[5] ? row[5] : "");
       strcpy(bulletins[i].city, row[6] ? row[6] : "");
       bulletins[i].price = atof(row[7]);
-      strcpy(bulletins[i].link, row[9] ? row[9] : "");
+      strcpy(bulletins[i].status, row[8] ? row[8] : "");
+      bulletins[i].avatar = atoi(row[9] ? row[9] : "");
+      strcpy(bulletins[i].link, row[10] ? row[10] : "");
       ++i;
     }
   mysql_free_result(result);
   mysql_close(conn);
   return bulletins;
+}
+
+void model_bulletins_update_avatar(const struct Model_bulletins *bulletin)
+{
+  if (!bulletin)
+    return;
+  char query[4096] = {'\0'};
+  MYSQL *conn = mysql_init(NULL);
+  mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
+  mysql_query(conn, "set names utf8");
+  snprintf(query, sizeof query / sizeof query[0],
+	   "UPDATE `bulletins` "
+	   "SET `avatar`='%d' "
+	   "WHERE `id`=%d;",
+	   bulletin->avatar, bulletin->id);
+  mysql_query(conn, query);
+  mysql_close(conn);
 }

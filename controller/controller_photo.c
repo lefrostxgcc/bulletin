@@ -7,6 +7,7 @@
 #include "../model/model_photo.h"
 #include "../model/model_photoform.h"
 #include "../view/photo/view_photo.h"
+#include "../model/model_bulletins.h"
 
 static int get_photo_id_from_query_string(void)
 {
@@ -108,6 +109,21 @@ static void controller_photo_action_getinfo(void)
   printf("\n\n");
 }
 
+static void controller_photo_action_setavatar(void)
+{
+  struct Model_photo photo = {'\0'};
+  model_photo_load_bull_by_post(&photo);
+  struct Model_bulletins bulletin =
+    {
+     .id = photo.bull_id,
+     .avatar = photo.id
+    };
+  model_bulletins_update_avatar(&bulletin);
+  printf("Content-Type: text/plain\n\n");
+  printf("Изображение установлено в качестве главного");
+  printf("\n\n");
+}
+
 void controller_photo_action(const char *request_uri)
 {
   if (strstr(request_uri, "/photo/index") == request_uri)
@@ -120,6 +136,8 @@ void controller_photo_action(const char *request_uri)
     controller_photo_action_setinfo();
   else if (strstr(request_uri, "/photo/getinfo") == request_uri)
     controller_photo_action_getinfo();
+  else if (strstr(request_uri, "/photo/setavatar") == request_uri)
+    controller_photo_action_setavatar();
   else
     session_redirect("/", NULL);
 }

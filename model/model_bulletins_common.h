@@ -12,6 +12,7 @@ struct Model_bulletins
   char city[256];
   double price;
   char status[256];
+  int avatar;
   char link[256];
 };
 
