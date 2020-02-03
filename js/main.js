@@ -69,3 +69,19 @@ $(".infosave").on("click", function()
 		      var bull_id = $("#photos-row").data('bull_id');
 		      $('body').load('/photo/index?id=' + bull_id);
 		  });
+
+$(".deletebutton").on("click", function()
+		      {
+			  var r = $(this).data('id');
+			  var del = confirm("Вы действительно хотите " +
+					    "удалить это изображение?");
+			  if (del == true)
+			  {
+			      alert("Вы выбрали OK");
+			  }
+			  else
+			  {
+			      alert("Вы выбрали Отмена");
+			  }
+		      }
+		     );
