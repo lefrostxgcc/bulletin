@@ -77,11 +77,26 @@ $(".deletebutton").on("click", function()
 					    "удалить это изображение?");
 			  if (del == true)
 			  {
-			      alert("Вы выбрали OK");
+			      $.ajax(
+				  {
+				      type: "POST",
+				      url: "/photo/setdelete",
+				      data: {id:r},
+				      success: function(res)
+				      {
+					  alert(res);
+				      },
+				      error: function()
+				      {
+					  alert("error!");
+				      }
+				  });
+			      var bull_id = $("#photos-row").data('bull_id');
+			      $('body').load('/photo/index?id=' + bull_id);
 			  }
 			  else
 			  {
-			      alert("Вы выбрали Отмена");
+			      alert("Удаление отменено");
 			  }
 		      }
 		     );

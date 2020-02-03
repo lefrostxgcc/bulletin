@@ -18,6 +18,8 @@ int model_photo_load_info_by_post(struct Model_photo *photo);
 int model_photo_load_id_by_post(struct Model_photo *photo);
 int model_photo_load_bull_by_post(struct Model_photo *photo);
 int model_photo_update_avatar_by_id(const struct Model_photo *photo);
+void model_photo_delete(const struct Model_photo *photo);
+void model_photo_delete_file(const struct Model_photo *photo);
 
 void model_photos_free(struct Model_photo *photos);
 

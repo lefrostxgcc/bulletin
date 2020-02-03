@@ -167,3 +167,25 @@ int model_photo_load_bull_by_post(struct Model_photo *photo)
   sscanf(content, "PhotoId=%d&BullId=%d", &photo->id, &photo->bull_id);
   return 1;
 }
+
+void model_photo_delete(const struct Model_photo *photo)
+{
+  if (!photo)
+    return;
+  char query[2048];
+  MYSQL *conn = mysql_init(NULL);
+  mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
+  mysql_query(conn, "set names utf8");
+  snprintf(query, sizeof query / sizeof query[0],
+	   "DELETE FROM `photo`"
+	   " WHERE `id`='%d';",
+	   photo->id);
+  mysql_query(conn, query);
+  mysql_close(conn);
+}
+
+void model_photo_delete_file(const struct Model_photo *photo)
+{
+  if (photo && photo->link)
+    remove(photo->link);
+}
