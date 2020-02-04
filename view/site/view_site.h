@@ -14,4 +14,10 @@ void render_site_index_guest(const struct Model_bulletins *bulletins);
 
 void render_site_logout(int user_id);
 
+void render_site_view_bulletin(const char *username,
+			       const struct Model_bulletins *bulletin);
+
+void render_site_view_bulletin_guest(const struct Model_bulletins *bulletin);
+
+
 #endif

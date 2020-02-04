@@ -95,12 +95,39 @@ static void controller_site_action_logout(void)
   session_redirect("/", cookie_header);
 }
 
+static int get_bulletin_id_from_query_string(void)
+{
+  const char *query_string = getenv("QUERY_STRING");
+  int id = 0;
+  if (!query_string)
+    return 0;
+  if (sscanf(query_string, "id=%d", &id) != 1)
+    return 0;
+  return id;
+}
+
+static void controller_site_action_view_bulletin(void)
+{
+  const int user_id = session_get_curr_user_id();
+  struct Model_user *user = model_user_select_by_id(user_id);
+  struct Model_bulletins *bulletin =
+    select_bulletin_by_id(get_bulletin_id_from_query_string());
+  if (user)
+    render_site_view_bulletin(user->username, bulletin);
+  else
+    render_site_view_bulletin_guest(bulletin);
+  free(bulletin);
+  model_user_free(user);
+}
+
 void controller_site_action(const char *request_uri)
 {
   if (strcmp(request_uri, "/site/login") == 0)
     controller_site_action_login();
   else if (strcmp(request_uri, "/site/logout") == 0)
     controller_site_action_logout();
+  else if (strstr(request_uri, "/site/view-bulletin") == request_uri)
+    controller_site_action_view_bulletin();
   else
     controller_site_action_index();
 }

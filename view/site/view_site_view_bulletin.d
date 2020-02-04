@@ -1,0 +1,4 @@
+view/site/view_site_view_bulletin.o view/site/view_site_view_bulletin.d : view/site/view_site_view_bulletin.c \
+ view/site/view_site.h view/site/../../model/model_bulletins.h \
+ view/site/../../model/model_bulletins_common.h \
+ view/site/../read_replace_write.h

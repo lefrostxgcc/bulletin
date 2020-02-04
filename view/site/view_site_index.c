@@ -8,6 +8,7 @@
 
 struct Bulletins_info
 {
+  char id[256];
   char title[256];
   char price[256];
   char city[256];
@@ -28,6 +29,8 @@ alloc_info_rows(const struct Model_bulletins model[])
     calloc(row_count + 1, sizeof(struct Bulletins_info));
   for (int i = 0; i < row_count; i++)
     {
+      snprintf(rows[i].id, sizeof(rows[i].id)/(sizeof(rows[i].id[0])),
+	       "%d", model[i].id);
       strcpy(rows[i].title, model[i].title);
       snprintf(rows[i].price, sizeof(rows[i].price)/(sizeof(rows[i].price[0])),
 	       "%.2f", model[i].price);
@@ -64,6 +67,7 @@ void print_info_rows(const char *filename, void *embed)
     {
       const struct Key_value map[] =
 	{
+	 {.key = "BULLETIN_ID", .value = rows->id},
 	 {.key = "BULLETIN_AVATAR", .value = rows->link},
 	 {.key = "BULLETIN_TITLE", .value = rows->title},
 	 {.key = "BULLETIN_PRICE", .value = rows->price},
