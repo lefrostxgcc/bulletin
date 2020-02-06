@@ -7,7 +7,7 @@ struct Model_bulletins
   int user_id;
   char date_pub[256];
   char title[256];
-  char info[256];
+  char *info;
   char contacts[256];
   char city[256];
   double price;
@@ -19,7 +19,7 @@ struct Model_bulletins
 struct Model_bulletinsform
 {
   char title[256];
-  char info[256];
+  char *info;
   char contacts[256];
   char city[256];
   double price;

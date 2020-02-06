@@ -80,7 +80,7 @@ static void controller_site_action_index(void)
     render_site_index(user->username, bulletins);
   else
     render_site_index_guest(bulletins);
-  free(bulletins);
+  model_bulletins_array_free(bulletins);
   model_user_free(user);
 }
 
@@ -116,7 +116,7 @@ static void controller_site_action_view_bulletin(void)
     render_site_view_bulletin(user->username, bulletin);
   else
     render_site_view_bulletin_guest(bulletin);
-  free(bulletin);
+  model_bulletins_free(bulletin);
   model_user_free(user);
 }
 

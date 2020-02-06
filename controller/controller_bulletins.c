@@ -26,7 +26,7 @@ static void controller_bulletins_action_index(void)
   struct Model_bulletins *bulletins =
     select_bulletins_by_userid_and_status(user_id, "wait");
   render_bulletins_index(user->username, bulletins);
-  free(bulletins);
+  model_bulletins_array_free(bulletins);
   model_user_free(user);
 }
 
@@ -37,7 +37,7 @@ static void controller_bulletins_action_index_public(void)
   struct Model_bulletins *bulletins =
     select_bulletins_by_userid_and_status(user_id, "public");
   render_bulletins_index_public(user->username, bulletins);
-  free(bulletins);
+  model_bulletins_array_free(bulletins);
   model_user_free(user);
 }
 
@@ -48,7 +48,7 @@ static void controller_bulletins_action_index_wait(void)
   struct Model_bulletins *bulletins =
     select_bulletins_by_userid_and_status(user_id, "wait");
   render_bulletins_index_wait(user->username, bulletins);
-  free(bulletins);
+  model_bulletins_array_free(bulletins);
   model_user_free(user);
 }
 
@@ -59,7 +59,7 @@ static void controller_bulletins_action_index_deleted(void)
   struct Model_bulletins *bulletins =
     select_bulletins_by_userid_and_status(user_id, "delete");
   render_bulletins_index_deleted(user->username, bulletins);
-  free(bulletins);
+  model_bulletins_array_free(bulletins);
   model_user_free(user);
 }
 
@@ -75,6 +75,7 @@ static void controller_bulletins_action_addbulletin(void)
 	  model_bulletins_set_new(&bulletin, &form, session_user_id);
 	  model_bulletins_insert(&bulletin);
 	  session_redirect("/bulletins/index", NULL);
+	  free(bulletin.info);
 	  return;
 	}
     }
@@ -102,6 +103,8 @@ static void controller_bulletins_action_editbulletin(void)
 	  bulletin.id = bulletin_id;
 	  model_bulletins_edit(&bulletin);
 	  session_redirect("/bulletins/index", NULL);
+	  free(form.info);
+	  free(bulletin.info);
 	  return;
 	}
     }
@@ -109,11 +112,13 @@ static void controller_bulletins_action_editbulletin(void)
   if (!bulletin)
     {
       session_redirect("/bulletins/index", NULL);
+      free(form.info);
       return;
     }
   model_bulletinsform_init_from_bulletin(&form, bulletin);
   struct Model_user *user = model_user_select_by_id(session_user_id);
   render_bulletins_editbulletin(user->username, &form, bulletin_id);
+  free(form.info);
   model_user_free(user);
   model_bulletins_free(bulletin);
 }

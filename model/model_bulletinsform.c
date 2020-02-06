@@ -43,16 +43,27 @@ model_bulletinsform_load_by_post_request(struct Model_bulletinsform *form)
   const char *content_length = getenv("CONTENT_LENGTH");
   if (content_length == NULL)
       return 0;
-  char content[MAX_CONTENT_LEN + 1] = {'\0'};
   int length = atoi(content_length);
-  fgets(content, length + 1, stdin);
+  if (length <= 0)
+    return 0;
+  char *content = malloc((length + 1) * sizeof(char));
+  fread(content, length * sizeof(char), 1, stdin);
+  content[length] = '\0';
   unescape_url(content);
   memset(form, '\0', sizeof(struct Model_bulletinsform));
+  char *info = malloc(length * sizeof(char) + 1);
+  info[0] = '\0';
   sscanf(content,
-	 "title=%255[^&]&info=%255[^&]&contacts=%255[^&]"
+	 "title=%255[^&]&info=%[^&]&contacts=%255[^&]"
 	 "&city=%255[^&]&price=%lf",
-	 form->title, form->info, form->contacts,
+	 form->title, info, form->contacts,
 	 form->city, &form->price);
+  size_t info_len = strlen(info);
+  form->info = malloc((info_len + 1) * sizeof(char));
+  form->info[0] = '\0';
+  strcpy(form->info, info);
+  free(info);
+  free(content);
   return 1;
 }
 
@@ -62,8 +73,18 @@ model_bulletinsform_init_from_bulletin(struct Model_bulletinsform *form,
 {
   memset(form, '\0', sizeof(struct Model_bulletinsform));
   strcpy(form->title, bulletin->title);
+  form->info = malloc(strlen(bulletin->info) * sizeof(char));
+  form->info[0] = '\0';
   strcpy(form->info, bulletin->info);
   strcpy(form->contacts, bulletin->contacts);
   strcpy(form->city, bulletin->city);
   form->price = bulletin->price;
+}
+
+void model_bulletinsform_free(struct Model_bulletinsform *form)
+{
+  if (form)
+    {
+      free(form->info);
+    }
 }

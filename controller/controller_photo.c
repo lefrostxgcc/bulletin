@@ -119,6 +119,7 @@ static void controller_photo_action_setavatar(void)
      .avatar = photo.id
     };
   model_bulletins_update_avatar(&bulletin);
+  free(bulletin.info);
   printf("Content-Type: text/plain\n\n");
   printf("Изображение установлено в качестве главного");
   printf("\n\n");

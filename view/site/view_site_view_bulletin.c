@@ -1,7 +1,8 @@
-#include <stddef.h>
+#include <string.h>
 #include "view_site.h"
 #include "../../model/model_bulletins.h"
 #include "../read_replace_write.h"
+#include "../../config/params.h"
 
 void render_site_view_bulletin(const char *username,
 			       const struct Model_bulletins *bulletin)
@@ -10,8 +11,16 @@ void render_site_view_bulletin(const char *username,
   snprintf(price_buf, sizeof(price_buf) / sizeof(price_buf[0]),
 	   "%.2f", bulletin->price);
   char avatar_buf[512] = {'\0'};
-  snprintf(avatar_buf, sizeof(avatar_buf) / sizeof(avatar_buf[0]),
-	   "/%s", bulletin->link);
+  if (strlen(bulletin->link) > 0)
+    {
+      strcat(avatar_buf, "/");
+      strcat(avatar_buf, bulletin->link);
+    }
+  else
+    {
+      snprintf(avatar_buf, sizeof(avatar_buf)/(sizeof(avatar_buf[0])),
+	       "%s%s", IMAGE_PATH, DEFAULT_IMAGE);
+    }
   const struct Key_value map[] =
     {
      { .key = "LOGIN", .value = username },
@@ -33,8 +42,16 @@ void render_site_view_bulletin_guest(const struct Model_bulletins *bulletin)
   snprintf(price_buf, sizeof(price_buf) / sizeof(price_buf[0]),
 	   "%.2f", bulletin->price);
   char avatar_buf[512] = {'\0'};
-  snprintf(avatar_buf, sizeof(avatar_buf) / sizeof(avatar_buf[0]),
-	   "/%s", bulletin->link);
+  if (strlen(bulletin->link) > 0)
+    {
+      strcat(avatar_buf, "/");
+      strcat(avatar_buf, bulletin->link);
+    }
+  else
+    {
+      snprintf(avatar_buf, sizeof(avatar_buf)/(sizeof(avatar_buf[0])),
+	       "%s%s", IMAGE_PATH, DEFAULT_IMAGE);
+    }
   const struct Key_value map[] =
     {
      { .key = "BULLETIN_TITLE", .value = bulletin->title },

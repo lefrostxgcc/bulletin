@@ -15,6 +15,8 @@ void model_bulletins_set_new(
   memset(bulletin, '\0', sizeof(struct Model_bulletins));
   bulletin->user_id = session_user_id;
   strcpy(bulletin->title, form->title);
+  bulletin->info = malloc((strlen(form->info) + 1) * sizeof(char));
+  bulletin->info[0] = '\0';
   strcpy(bulletin->info, form->info);
   strcpy(bulletin->contacts, form->contacts);
   strcpy(bulletin->city, form->city);
@@ -22,16 +24,31 @@ void model_bulletins_set_new(
   strcpy(bulletin->status, "wait");
 }
 
+void model_bulletins_array_free(struct Model_bulletins *bulletin)
+{
+  struct Model_bulletins *p = bulletin;
+  while (p && p->id > 0)
+    {
+      model_bulletins_free(p);
+      ++p;
+    }
+  free(bulletin);
+}
+
 void model_bulletins_free(struct Model_bulletins *bulletin)
 {
-  free(bulletin);
+  if (bulletin)
+    {
+      //free(bulletin->info);
+      // free(bulletin);
+    }
 }
 
 int model_bulletins_insert(const struct Model_bulletins *bulletin)
 {
   if (!bulletin)
     return 0;
-  char query[2048];
+  char query[4096];
   MYSQL *conn = mysql_init(NULL);
   mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
   mysql_query(conn, "set names utf8");
@@ -101,7 +118,7 @@ select_bulletins_by_userid_and_status(int user_id, const char *status)
   MYSQL *conn = NULL;
   MYSQL_RES *result = NULL;
   MYSQL_ROW row;
-  char query[2048] = {'\0'};
+  char query[4096] = {'\0'};
   conn = mysql_init(NULL);
   mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
   mysql_query(conn, "set names utf8");
@@ -121,6 +138,8 @@ select_bulletins_by_userid_and_status(int user_id, const char *status)
       bulletins[i].user_id = atoi(row[1]);
       strcpy(bulletins[i].date_pub, row[2] ? row[2] : "");
       strcpy(bulletins[i].title, row[3] ? row[3] : "");
+      bulletins[i].info = malloc(strlen(row[4]) + 1);
+      bulletins[i].info[0] = '\0';
       strcpy(bulletins[i].info, row[4] ? row[4] : "");
       strcpy(bulletins[i].contacts, row[5] ? row[5] : "");
       strcpy(bulletins[i].city, row[6] ? row[6] : "");
@@ -139,7 +158,7 @@ struct Model_bulletins *select_bulletin_by_id(int id)
   MYSQL *conn = NULL;
   MYSQL_RES *result = NULL;
   MYSQL_ROW row;
-  char query[2048] = {'\0'};
+  char query[4096] = {'\0'};
   conn = mysql_init(NULL);
   mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
   mysql_query(conn, "set names utf8");
@@ -163,6 +182,8 @@ struct Model_bulletins *select_bulletin_by_id(int id)
   bulletin->user_id = atoi(row[1]);
   strcpy(bulletin->date_pub, row[2] ? row[2] : "");
   strcpy(bulletin->title, row[3] ? row[3] : "");
+  bulletin->info = malloc(strlen(row[4]) + 1);
+  bulletin->info[0] = '\0';
   strcpy(bulletin->info, row[4] ? row[4] : "");
   strcpy(bulletin->contacts, row[5] ? row[5] : "");
   strcpy(bulletin->city, row[6] ? row[6] : "");
@@ -204,7 +225,7 @@ struct Model_bulletins *select_bulletins_by_status(const char *status)
   MYSQL *conn = NULL;
   MYSQL_RES *result = NULL;
   MYSQL_ROW row;
-  char query[2048] = {'\0'};
+  char query[4096] = {'\0'};
   conn = mysql_init(NULL);
   mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
   mysql_query(conn, "set names utf8");
@@ -228,6 +249,8 @@ struct Model_bulletins *select_bulletins_by_status(const char *status)
       bulletins[i].user_id = atoi(row[1]);
       strcpy(bulletins[i].date_pub, row[2] ? row[2] : "");
       strcpy(bulletins[i].title, row[3] ? row[3] : "");
+      bulletins[i].info = malloc(strlen(row[4]) + 1);
+      bulletins[i].info[0] = '\0';
       strcpy(bulletins[i].info, row[4] ? row[4] : "");
       strcpy(bulletins[i].contacts, row[5] ? row[5] : "");
       strcpy(bulletins[i].city, row[6] ? row[6] : "");

@@ -35,4 +35,6 @@ void
 model_bulletinsform_init_from_bulletin(struct Model_bulletinsform *form,
 				       const struct Model_bulletins *bulletin);
 
+void model_bulletinsform_free(struct Model_bulletinsform *form);
+
 #endif

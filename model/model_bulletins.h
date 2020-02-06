@@ -22,6 +22,7 @@ void model_bulletins_set_public(struct Model_bulletins *bulletin);
 void model_bulletins_set_wait(struct Model_bulletins *bulletin);
 void model_bulletins_set_delete(struct Model_bulletins *bulletin);
 void model_bulletins_free(struct Model_bulletins *bulletin);
+void model_bulletins_array_free(struct Model_bulletins *bulletin);
 int model_bulletins_edit(const struct Model_bulletins *bulletin);
 void model_bulletins_update_avatar(const struct Model_bulletins *bulletin);
 
