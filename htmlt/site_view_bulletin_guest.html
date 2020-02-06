@@ -21,8 +21,28 @@
       </nav>
     </header>
     <main>
-      <h3>{{BULLETIN_TITLE}}</h3>
-      <p>{{BULLETIN_INFO}}</p>
+      <div class="flexrow">
+	<div class="col-l-6 col-m-6">
+	  <h3>{{BULLETIN_TITLE}}</h3>
+	  <p>
+	    <img src={{BULLETIN_AVATAR}} alt="ava" style="height: 400px;">
+	  </p>
+	  <p>{{BULLETIN_INFO}}</p>
+	</div>
+	<div class="col-l-6 col-m-6">
+	  <div>
+	    Цена: <strong>{{BULLETIN_PRICE}}</strong>
+	  </div>
+	  <div>
+	    Город: <strong>{{BULLETIN_CITY}}</strong>
+	  </div>
+	  <div>
+	    Контактная информация: <strong>{{BULLETIN_CONTACTS}}</strong>
+	  </div>
+	  <div>
+	    Дата публикации: <strong>{{BULLETIN_DATE_PUB}}</strong>
+	  </div>
+	</div>
     </main>
   </body>
 </html>

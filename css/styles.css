@@ -396,7 +396,7 @@ a i {
 
     .col-l-1 {flex: 8.33%; max-width: 8.33%;}
     .col-l-2 {flex: 16.66%; max-width: 16.66%;}
-    .col-l-3 {flex: 0 0 25%; max-width: 25%;}
+    .col-l-3 {flex: 25%; max-width: 25%;}
     .col-l-4 {flex: 33.33%; max-width: 33.33%;}
     .col-l-5 {flex: 41.66%; max-width: 41.66%;}
     .col-l-6 {flex: 50%; max-width: 50%;}

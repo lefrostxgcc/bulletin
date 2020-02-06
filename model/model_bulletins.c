@@ -144,10 +144,14 @@ struct Model_bulletins *select_bulletin_by_id(int id)
   mysql_real_connect(conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 0, NULL, 0);
   mysql_query(conn, "set names utf8");
   snprintf(query, sizeof query / sizeof query[0],
-	   "SELECT `id`,`user_id`,`date_pub`,`title`,"
-	   "`info`,`contacts`,`city`,`price`,`status`"
-	   "FROM `bulletins` WHERE "
-	   "`id`=%d;", id);
+	   "SELECT `bulletins`.`id`,`user_id`,`date_pub`,`title`,"
+	   "`bulletins`.`info`,`contacts`,`city`,`price`,`status`,"
+	   "`avatar`, `photo`.`link`"
+	   " FROM `bulletins`"
+	   " LEFT JOIN `photo` ON `bulletins`.`avatar`=`photo`.`id` "
+	   " WHERE "
+	   "`bulletins`.`id`='%d';",
+	   id);
   mysql_query(conn, query);
   result = mysql_store_result(conn);
   row = mysql_fetch_row(result);
@@ -164,6 +168,8 @@ struct Model_bulletins *select_bulletin_by_id(int id)
   strcpy(bulletin->city, row[6] ? row[6] : "");
   bulletin->price = atof(row[7]);
   strcpy(bulletin->status, row[8] ? row[8] : "");
+  bulletin->avatar = atoi(row[9] ? row[9] : "");
+  strcpy(bulletin->link, row[10] ? row[10] : "");
   mysql_free_result(result);
   mysql_close(conn);
   return bulletin;
