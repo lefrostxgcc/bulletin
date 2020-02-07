@@ -150,6 +150,12 @@ a i {
     text-align: left;
 }
 
+hr {
+    border: 0px;
+    height: 1px;
+    background: #ddd;
+}
+
 .active {
     border-top: 1px solid gray;
     border-left: 1px solid gray;
