@@ -206,6 +206,38 @@ a i {
     border-bottom: 1px solid #d6e9c6;
 }
 
+.panel {
+    border-radius: 5px;
+}
+
+.panel-info {
+    border: 1px solid #bce8f1;
+}
+
+.panel-info > .panel-heading {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    padding: 10px 15px;
+}
+
+.panel-body {
+    padding: 10px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 3px 7px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 1;
+    vertical-align: middle;
+    background-color: #777777;
+    border-radius: 10px;
+}
+
 .form-bulletin main {
     padding: 10px;
 }
@@ -381,8 +413,8 @@ a i {
 
 @media screen and (min-width: 1200px) {
     main {
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: 15%;
+	padding-right: 15%;
     }
     .column-left, .column-right {
 	float: left;

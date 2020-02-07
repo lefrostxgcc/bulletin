@@ -3,6 +3,8 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet"
+	  href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
   <body>
     <header>
@@ -27,20 +29,40 @@
 	  <p>
 	    <img src={{BULLETIN_AVATAR}} alt="ava" style="height: 400px;">
 	  </p>
-	  <p>{{BULLETIN_INFO}}</p>
 	</div>
 	<div class="col-l-6 col-m-6">
-	  <div>
-	    Цена: <strong>{{BULLETIN_PRICE}}</strong>
+	  <div class="panel panel-info">
+	    <div class="panel-heading">
+	      <i class="material-icons"
+		 style="vertical-align: middle;font-size: 125%;">
+		keyboard_arrow_down
+	      </i>
+	      Информация
+	    </div>
+	    <div class="panel-body">
+	      <table class="table">
+		<tr>
+		  <td>Цена:</td>
+		  <td><strong>{{BULLETIN_PRICE}}</strong></td>
+		</tr>
+		<tr>
+		  <td>Город:</td>
+		  <td><strong>{{BULLETIN_CITY}}</strong></td>
+		</tr>
+		<tr>
+		  <td>Контакты:</td>
+		  <td><strong>{{BULLETIN_CONTACTS}}</strong></td>
+		</tr>
+	      </table>
+	    </div>
 	  </div>
 	  <div>
-	    Город: <strong>{{BULLETIN_CITY}}</strong>
+	    <p>{{BULLETIN_INFO}}</p>
 	  </div>
 	  <div>
-	    Контактная информация: <strong>{{BULLETIN_CONTACTS}}</strong>
-	  </div>
-	  <div>
-	    Дата публикации: <strong>{{BULLETIN_DATE_PUB}}</strong>
+	    <p>Дата публикации:
+	      <span class="badge">{{BULLETIN_DATE_PUB}}</span>
+	    </p>
 	  </div>
 	</div>
     </main>
