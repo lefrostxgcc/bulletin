@@ -3,30 +3,30 @@
 }
 
 .top-menu {
-  position: relative;
-  background: #101010;
+    position: relative;
+    background: blue;
 }
 .menu-main {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 .menu-main:after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 .left-item {float: left;}
 .right-item {float: right;}
 .menu-main a {
-  text-decoration: none;
-  display: block;
-  line-height: 80px;
-  padding: 0 20px;
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-  transition: .3s linear;
+    text-decoration: none;
+    display: block;
+    line-height: 60px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    transition: .3s linear;
 }
 
 .row {
@@ -36,6 +36,17 @@
 }
 
 .row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.footer-row {
+    width: 100%;
+    margin: auto;
+}
+
+.footer-row::after {
     content: "";
     clear: both;
     display: table;
@@ -105,9 +116,9 @@ a i {
 }
 
 .tabs:after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .tab {
@@ -169,7 +180,7 @@ hr {
 .userform_col_1{display: inline-block; width: 40%; float: left;}
 .userform_col_2{display: inline-block; width: 40%; float: left;}
 .wide {width: 100%; box-sizing: border-box;}
-.menu-main a:hover {background: #777777;}
+.menu-main a:hover {background: green;}
 
 .column-left {
     float: left;
@@ -359,16 +370,63 @@ hr {
     background-color: #f1f1f1;
 }
 
+.footer-items {
+    display: block;
+    line-height: 60px;
+    padding: 0px 20px;
+}
+
+html, body {
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+main {
+    padding-left: 10px;
+    padding-right: 10px;
+    flex: 1 0 auto;
+}
+footer {
+    flex: 0 0 auto;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+}
+
+.top-menu, .footer-items {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 @media screen and (min-width: 768px) {
+    html, body {
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+    }
     main {
 	padding-left: 10px;
 	padding-right: 10px;
+	flex: 1 0 auto;
+    }
+    footer {
+	flex: 0 0 auto;
+	background-color: #f5f5f5;
+	border-top: 1px solid #ddd;
     }
     .column-left, .column-right {
 	float: left;
 	width: 50%;
     }
-
+    .top-menu, .footer-items {
+	padding-left: 10px;
+	padding-right: 10px;
+    }
     .flexrow {
 	-webkit-flex-direction: row;
 	flex-direction: row;
@@ -389,15 +447,32 @@ hr {
 }
 
 @media screen and (min-width: 992px) {
+    html, body {
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+    }
     main {
 	padding-left: 10px;
 	padding-right: 10px;
+	flex: 1 0 auto;
+    }
+    footer {
+	flex: 0 0 auto;
+	background-color: #f5f5f5;
+	border-top: 1px solid #ddd;
     }
     .column-left, .column-right {
 	float: left;
 	width: 50%;
     }
-
+    .top-menu, .footer-items {
+	padding-left: 10px;
+	padding-right: 10px;
+    }
     .flexrow {
 	-webkit-flex-direction: row;
 	flex-direction: row;
@@ -418,10 +493,29 @@ hr {
 }
 
 @media screen and (min-width: 1200px) {
-    main {
+    html, body {
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+    }
+    .top-menu, .footer-items {
 	padding-left: 15%;
 	padding-right: 15%;
     }
+    main {
+	flex: 1 0 auto;
+	padding-left: 15%;
+	padding-right: 15%;
+    }
+    footer {
+	flex: 0 0 auto;
+	background-color: #f5f5f5;
+	border-top: 1px solid #ddd;
+    }
+
     .column-left, .column-right {
 	float: left;
 	width: 50%;
