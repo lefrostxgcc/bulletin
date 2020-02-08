@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet"
 	  href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+    <script src="/js/bull.js"></script>
   </head>
   <body>
     <header>
@@ -25,10 +29,19 @@
     <main>
       <div class="flexrow">
 	<div class="col-l-6 col-m-6">
-	  <h3>{{BULLETIN_TITLE}}</h3>
-	  <p>
-	    <img src={{BULLETIN_AVATAR}} alt="ava" style="height: 400px;">
-	  </p>
+	  <div class="flexrow">
+	    <div class="col-l-12 col-m-12">
+	      <h3>{{BULLETIN_TITLE}}</h3>
+	      <p>
+		<img src={{BULLETIN_AVATAR}} alt="ava"
+		     id="bullavatar"
+		     style="height: 400px;">
+	      </p>
+	    </div>
+	  </div>
+	  <div class="flexrow">
+	    {{BULLETIN_PHOTOS_EMBED}}
+	  </div>
 	</div>
 	<div class="col-l-6 col-m-6">
 	  <div class="panel panel-info">
@@ -76,5 +89,7 @@
 	</div>
       </div>
     </footer>
+    <script src="/js/bull.js">
+    </script>
   </body>
 </html>

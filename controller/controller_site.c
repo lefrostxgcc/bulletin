@@ -6,6 +6,7 @@
 #include "controller_site.h"
 #include "../model/model_user.h"
 #include "../model/model_bulletins.h"
+#include "../model/model_photo.h"
 #include "../view/site/view_site.h"
 
 #define MAX_USERNAME_LEN 15
@@ -110,12 +111,14 @@ static void controller_site_action_view_bulletin(void)
 {
   const int user_id = session_get_curr_user_id();
   struct Model_user *user = model_user_select_by_id(user_id);
-  struct Model_bulletins *bulletin =
-    select_bulletin_by_id(get_bulletin_id_from_query_string());
+  const int bull_id = get_bulletin_id_from_query_string();
+  struct Model_bulletins *bulletin = select_bulletin_by_id(bull_id);
+  struct Model_photo *photos = select_photos_by_bull_id(bull_id);
   if (user)
-    render_site_view_bulletin(user->username, bulletin);
+    render_site_view_bulletin(user->username, bulletin, photos);
   else
-    render_site_view_bulletin_guest(bulletin);
+    render_site_view_bulletin_guest(bulletin, photos);
+  free(photos);
   model_bulletins_free(bulletin);
   model_user_free(user);
 }
