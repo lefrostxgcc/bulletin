@@ -2,6 +2,7 @@
 #include "view_bulletins.h"
 #include "../../model/model_bulletinsform.h"
 #include "../read_replace_write.h"
+#include "../curr_date.h"
 
 void render_bulletins_editbulletin(const char *username,
 				   const struct Model_bulletinsform *form,
@@ -17,7 +18,8 @@ void render_bulletins_editbulletin(const char *username,
 	   sizeof(id_buf) / sizeof(id_buf[0]),
 	   "%d",
 	   bulletins_id);
-
+  char curr_year[8] = {'\0'};
+  get_curr_year(curr_year, sizeof(curr_year) / sizeof(curr_year[0]));
   const char **labels = model_bulletinsform_attribute_labels();
   const struct Key_value map[] =
     {
@@ -66,6 +68,7 @@ void render_bulletins_editbulletin(const char *username,
       .value = price_buf
      },
      {.key = "LOGIN", .value = username},
+     { .key = "CURRENT_YEAR", .value = curr_year },
      {.key = NULL, .value = NULL}
     };
   read_replace_write("htmlt/bulletins_editbulletin.html", map, NULL);

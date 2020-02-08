@@ -3,11 +3,15 @@
 #include <time.h>
 #include "view_site.h"
 #include "../read_replace_write.h"
+#include "../curr_date.h"
 
 void render_site_login(void)
 {
+  char curr_year[8] = {'\0'};
+  get_curr_year(curr_year, sizeof(curr_year) / sizeof(curr_year[0]));
   const struct Key_value map[] =
     {
+     { .key = "CURRENT_YEAR", .value = curr_year },
      (const struct Key_value){.key = NULL, .value = NULL}
     };
   read_replace_write("htmlt/site_login.html", map, NULL);
@@ -15,8 +19,11 @@ void render_site_login(void)
 
 void render_site_login_fail(const char *username)
 {
+  char curr_year[8] = {'\0'};
+  get_curr_year(curr_year, sizeof(curr_year) / sizeof(curr_year[0]));
   const struct Key_value map[] =
     {
+     { .key = "CURRENT_YEAR", .value = curr_year },
      (const struct Key_value){.key = "USERNAME", .value = username},
      (const struct Key_value){.key = NULL, .value = NULL}
     };

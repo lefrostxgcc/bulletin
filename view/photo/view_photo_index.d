@@ -2,4 +2,4 @@ view/photo/view_photo_index.o view/photo/view_photo_index.d : view/photo/view_ph
  view/photo/../../model/model_photo.h \
  view/photo/../../model/model_photo_common.h \
  view/photo/../../model/model_photoform.h \
- view/photo/../read_replace_write.h
+ view/photo/../read_replace_write.h view/photo/../curr_date.h

@@ -5,6 +5,7 @@
 #include "../../model/model_bulletins.h"
 #include "../read_replace_write.h"
 #include "../../config/params.h"
+#include "../curr_date.h"
 
 struct Bulletins_info
 {
@@ -85,6 +86,8 @@ void render_site_index(const char *username,
 		       const struct Model_bulletins *bulletins)
 {
   struct Bulletins_info *embed = alloc_info_rows(bulletins);
+  char curr_year[8] = {'\0'};
+  get_curr_year(curr_year, sizeof(curr_year) / sizeof(curr_year[0]));
   const struct Key_value map[] =
     {
      {.key = "LOGIN", .value = username},
@@ -94,6 +97,7 @@ void render_site_index(const char *username,
       .embed = embed,
       .cb_print_embed = print_info_rows
      },
+     { .key = "CURRENT_YEAR", .value = curr_year },
      {.key = NULL, .value = NULL}
     };
   read_replace_write("htmlt/site_index.html", map, NULL);
@@ -103,6 +107,8 @@ void render_site_index(const char *username,
 void render_site_index_guest(const struct Model_bulletins *bulletins)
 {
   struct Bulletins_info *embed = alloc_info_rows(bulletins);
+  char curr_year[8] = {'\0'};
+  get_curr_year(curr_year, sizeof(curr_year) / sizeof(curr_year[0]));
   const struct Key_value map[] =
     {
      {
@@ -111,6 +117,7 @@ void render_site_index_guest(const struct Model_bulletins *bulletins)
       .embed = embed,
       .cb_print_embed = print_info_rows
      },
+     { .key = "CURRENT_YEAR", .value = curr_year },
      {.key = NULL, .value = NULL}
     };
   read_replace_write("htmlt/site_index_guest.html", map, NULL);

@@ -22,39 +22,50 @@
 	</ul>
       </nav>
     </header>
-    <div class="row">
-      <a class="btn" href="/bulletins/addbulletin">Добавить объявление</a>
-    </div>
-    <div class="row">
-      <nav>
-	<ul class="tabs">
-	  <li class="left-item tab">
-            <a class="btn-without-border" href="/bulletins/index/wait">
-              Черновики
-            </a>
-          </li>
-          <li class="left-item tab active">
-            <a class="btn-without-border" href="/bulletins/index/public">
-              Опубликованные
-            </a>
-          </li>
-          <li class="left-item tab">
-            <a class="btn-without-border" href="/bulletins/index/deleted">
-              Удаленные
-            </a>
-          </li>
-	</ul>
-      </nav>
-      <div>
-        <table class="table">
-	  <tr>
-	    <th>№</th>
-	    <th>Объявление</th>
-	    <th>Управление</th>
-	  </tr>
-	  {{BULLETINS_PUBLIC_ROWS}}
-        </table>
+    <main>
+      <div class="row">
+	<a class="btn" href="/bulletins/addbulletin">Добавить объявление</a>
       </div>
-    </div>
+      <div class="row">
+	<nav>
+	  <ul class="tabs">
+	    <li class="left-item tab">
+              <a class="btn-without-border" href="/bulletins/index/wait">
+		Черновики
+              </a>
+            </li>
+            <li class="left-item tab active">
+              <a class="btn-without-border" href="/bulletins/index/public">
+		Опубликованные
+              </a>
+            </li>
+            <li class="left-item tab">
+              <a class="btn-without-border" href="/bulletins/index/deleted">
+		Удаленные
+              </a>
+            </li>
+	  </ul>
+	</nav>
+	<div>
+          <table class="table">
+	    <tr>
+	      <th>№</th>
+	      <th>Объявление</th>
+	      <th>Управление</th>
+	    </tr>
+	    {{BULLETINS_PUBLIC_ROWS}}
+          </table>
+	</div>
+      </div>
+    </main>
+    <footer>
+      <div class="footer-row">
+	<div class="footer-items">
+	  <div class="left-item">
+	    &copy; Chip {{CURRENT_YEAR}}
+	  </div>
+	</div>
+      </div>
+    </footer>
   </body>
 </html>

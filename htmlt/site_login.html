@@ -19,32 +19,43 @@
 	</ul>
       </nav>
     </header>
-    <form action="/site/login" method="post">
-      <div style="margin: 10px">
-	<h1>Вход</h1>
-	<p>Для входа на сайт введите логин и пароль</p>
-	<table cellspacing="5px">
-	  <tr>
-	    <td><label>Логин</label></td>
-	    <td><input name="login" size="15"/></td>
-	  </tr>
-	  <tr>
-	    <td><label>Пароль</label></td>
-	    <td><input type="password" name="password" size="15"/></td>
-	  </tr>
-	  <tr>
-	    <td></td>
-	    <td>
-	      <input type="checkbox" name="remember" checked="checked"/>
-	      Запомнить учетные данные
-	    </td>
-	  </tr>
-	  <tr>
-	    <td></td>
-	    <td><input type="submit" value="Войти"/></td>
-	  </tr>
-	</table>
+    <main>
+      <form action="/site/login" method="post">
+	<div style="margin: 10px">
+	  <h1>Вход</h1>
+	  <p>Для входа на сайт введите логин и пароль</p>
+	  <table cellspacing="5px">
+	    <tr>
+	      <td><label>Логин</label></td>
+	      <td><input name="login" size="15"/></td>
+	    </tr>
+	    <tr>
+	      <td><label>Пароль</label></td>
+	      <td><input type="password" name="password" size="15"/></td>
+	    </tr>
+	    <tr>
+	      <td></td>
+	      <td>
+		<input type="checkbox" name="remember" checked="checked"/>
+		Запомнить учетные данные
+	      </td>
+	    </tr>
+	    <tr>
+	      <td></td>
+	      <td><input type="submit" value="Войти"/></td>
+	    </tr>
+	  </table>
+	</div>
+      </form>
+    </main>
+    <footer>
+      <div class="footer-row">
+	<div class="footer-items">
+	  <div class="left-item">
+	    &copy; Chip {{CURRENT_YEAR}}
+	  </div>
+	</div>
       </div>
-    </form>
+    </footer>
   </body>
 </html>

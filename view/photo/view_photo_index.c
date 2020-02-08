@@ -4,6 +4,7 @@
 #include "../../model/model_photo.h"
 #include "../../model/model_photoform.h"
 #include "../read_replace_write.h"
+#include "../curr_date.h"
 
 struct Photo_front
 {
@@ -76,6 +77,8 @@ void render_photo_index(const char *username,
 	   "%d",
 	   bull_id);
   struct Photo_front *embed = alloc_photo_row(photos);
+  char curr_year[8] = {'\0'};
+  get_curr_year(curr_year, sizeof(curr_year) / sizeof(curr_year[0]));
   const struct Key_value map[] =
     {
      {.key = "LOGIN", .value = username},
@@ -89,6 +92,7 @@ void render_photo_index(const char *username,
       .embed = embed,
       .cb_print_embed = print_photo_row
      },
+     { .key = "CURRENT_YEAR", .value = curr_year },
      {.key = NULL, .value = NULL}
     };
   read_replace_write("htmlt/photo_index.html", map, NULL);
@@ -103,6 +107,8 @@ void render_photo_add(const char *username, int bull_id)
 	   "%d",
 	   bull_id);
   const char **labels = model_photoform_attribute_labels();
+  char curr_year[8] = {'\0'};
+  get_curr_year(curr_year, sizeof(curr_year) / sizeof(curr_year[0]));
   const struct Key_value map[] =
     {
      {.key = "LOGIN", .value = username},
@@ -114,6 +120,7 @@ void render_photo_add(const char *username, int bull_id)
       .key = "PHOTOFORM_FILE_LABEL",
       .value = labels[PHOTOFORM_FILE_INDEX]
      },
+     { .key = "CURRENT_YEAR", .value = curr_year },
      {.key = NULL, .value = NULL}
     };
   read_replace_write("htmlt/photo_add.html", map, NULL);

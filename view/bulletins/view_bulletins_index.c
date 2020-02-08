@@ -3,6 +3,7 @@
 #include <string.h>
 #include "view_bulletins.h"
 #include "../read_replace_write.h"
+#include "../curr_date.h"
 
 struct Bulletins_wait_row
 {
@@ -173,6 +174,8 @@ void render_bulletins_index_wait(const char *username,
 				 const struct Model_bulletins bulletins[])
 {
   struct Bulletins_wait_row *embed = alloc_wait_rows(bulletins);
+  char curr_year[8] = {'\0'};
+  get_curr_year(curr_year, sizeof(curr_year) / sizeof(curr_year[0]));
   const struct Key_value map[] =
     {
      {.key = "LOGIN", .value = username},
@@ -182,6 +185,7 @@ void render_bulletins_index_wait(const char *username,
       .embed = embed,
       .cb_print_embed = print_wait_rows
      },
+     { .key = "CURRENT_YEAR", .value = curr_year },
      {.key = NULL, .value = NULL}
     };
   read_replace_write("htmlt/bulletins_index_wait.html", map, NULL);
@@ -192,6 +196,8 @@ void render_bulletins_index_public(const char *username,
 				   const struct Model_bulletins bulletins[])
 {
   struct Bulletins_public_row *embed = alloc_public_rows(bulletins);
+  char curr_year[8] = {'\0'};
+  get_curr_year(curr_year, sizeof(curr_year) / sizeof(curr_year[0]));
   const struct Key_value map[] =
     {
      {.key = "LOGIN", .value = username},
@@ -201,6 +207,7 @@ void render_bulletins_index_public(const char *username,
       .embed = embed,
       .cb_print_embed = print_public_rows
      },
+     { .key = "CURRENT_YEAR", .value = curr_year },
      {.key = NULL, .value = NULL}
     };
   read_replace_write("htmlt/bulletins_index_public.html", map, NULL);
@@ -211,6 +218,8 @@ void render_bulletins_index_deleted(const char *username,
 				    const struct Model_bulletins bulletins[])
 {
   struct Bulletins_delete_row *embed = alloc_delete_rows(bulletins);
+  char curr_year[8] = {'\0'};
+  get_curr_year(curr_year, sizeof(curr_year) / sizeof(curr_year[0]));
   const struct Key_value map[] =
     {
      {.key = "LOGIN", .value = username},
@@ -220,6 +229,7 @@ void render_bulletins_index_deleted(const char *username,
       .embed = embed,
       .cb_print_embed = print_delete_rows
      },
+     { .key = "CURRENT_YEAR", .value = curr_year },
      {.key = NULL, .value = NULL}
     };
   read_replace_write("htmlt/bulletins_index_deleted.html", map, NULL);
