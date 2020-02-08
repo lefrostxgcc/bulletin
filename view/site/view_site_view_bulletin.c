@@ -9,7 +9,7 @@
 
 struct Photo_link_info
 {
-  char link[256];
+  char link[512];
   char info[256];
 };
 
@@ -29,7 +29,8 @@ alloc_photo_row(const struct Model_photo model[])
     calloc(count + 1, sizeof(struct Photo_link_info));
   for (int i = 0; i < count; i++)
     {
-      strcpy(row[i].link, model[i].link);
+      strcat(row[i].link, "/");
+      strcat(row[i].link, model[i].link);
       strcpy(row[i].info, model[i].info);
     }
   return row;
