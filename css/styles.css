@@ -5,18 +5,20 @@
 .top-menu {
     position: relative;
     background: #ee8208;
+    height: 100%;
 }
 .menu-main {
     list-style: none;
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 .menu-main:after {
     content: "";
     display: table;
     clear: both;
 }
-.left-item {float: left;}
+.left-item {float: left; height: 100%;}
 .right-item {float: right;}
 .menu-main a {
     text-decoration: none;
@@ -404,6 +406,22 @@ footer {
     height: 80px;
     object-fit: contain;
     padding: 5px;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+.logo a {
+    padding-left: 5px;
+    margin: auto;
+}
+
+.logo img {
+    margin: auto;
+    height: 32px;
 }
 
 @media screen and (min-width: 768px) {

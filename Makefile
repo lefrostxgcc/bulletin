@@ -12,6 +12,7 @@ image_files:= $(wildcard images/*.png)
 htmlt_files:= $(wildcard htmlt/*.html)
 css_files:= $(wildcard css/*.css)
 js_files:= $(wildcard js/*.js)
+favicon_file:= icons/favicon.ico
 data_files:= $(htmlt_files) $(css_files) $(js_files) $(image_files)
 objects:= $(sources:.c=.o)
 deps:= $(sources:.c=.d)
@@ -55,6 +56,7 @@ install_data: $(data_files)
 	-mkdir -m 777 $(imagedir)
 	chcon -t httpd_sys_rw_content_t $(imagedir)
 	$(install_data) $(image_files) $(imagedir)
+	$(install_data) $(favicon_file) $(bindir)
 
 clean:
 	rm -f $(name) $(objects)
